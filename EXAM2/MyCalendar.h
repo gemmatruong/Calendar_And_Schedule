@@ -15,11 +15,19 @@ public:
 	void setCurrentMonth(int m);
 	unsigned short getCurrentMonth() const;
 
+	void setCurrentYear(int y);
+	unsigned short getCurrentYear() const;
+
+	void setCurrentDay(int m);
+	unsigned short getCurrentDay() const;
+
 	string getMonthName();
 
 	string getDayOfWeek();
 
 	bool isLeapYear() const;
+
+	int* getSystemDate() const;
 
 };
 

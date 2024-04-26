@@ -3,14 +3,28 @@
 
 MyCalendar::MyCalendar()
 {
-	currentYear = 1999;
-	currentMonth = 1;
-	currentDay = 1;
+    int* date = getSystemDate();
+
+	currentMonth = date[0];
+	currentDay = date[1];
+    currentYear = date[2];
+
 	
 	//for (int m = 0; m < 12; m++)
 	//	for (int d = 0; d < 31; d++)
 	//		scheduleDays[m][d].setValue(d + 1);
 }
+
+void MyCalendar::setCurrentYear(int y)
+{
+    currentMonth = static_cast<unsigned short>(y);
+}
+
+unsigned short MyCalendar::getCurrentYear() const
+{
+    return currentYear;
+}
+
 
 
 void MyCalendar::setCurrentMonth(int m)
@@ -21,6 +35,16 @@ void MyCalendar::setCurrentMonth(int m)
 unsigned short MyCalendar::getCurrentMonth() const
 {
 	return currentMonth;
+}
+
+void MyCalendar::setCurrentDay(int d)
+{
+    currentDay = static_cast<unsigned short>(d);
+}
+
+unsigned short MyCalendar::getCurrentDay() const
+{
+    return currentDay;
 }
 
 string  MyCalendar::getMonthName()
@@ -88,4 +112,27 @@ bool MyCalendar::isLeapYear() const
 {
     return (currentYear % 400 == 0) || (currentYear % 100 != 0) && (currentYear % 4 == 0);
 
+}
+
+
+// Precondition: NA
+// Postcondition: return an array of integers holding month, day, year of the system date
+int* MyCalendar::getSystemDate() const
+{
+    int date[3];
+
+    // Get current time
+    time_t t = time(nullptr);
+
+    // initialize a tm structure which is used to break down time object into month, day, year, etc.
+    tm today;
+
+    // localtime_s() function is called to convert time value to a structure of tm
+    localtime_s(&today, &t);
+
+    date[0] = today.tm_mon + 1;		// tm structure uses 0 for January and so on
+    date[1] = today.tm_mday;
+    date[2] = today.tm_year + 1900;	// tm structure uses year from 1900
+
+    return date;
 }
