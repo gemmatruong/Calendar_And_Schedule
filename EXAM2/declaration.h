@@ -7,3 +7,14 @@
 #include "input.h"
 #include "MyScheduleDate.h"
 #include "MyUnit.h"
+
+char menuOption();
+
+void yearSetUp();
+void monthSetup();
+void daySetUp();
+void calendarSetUp();
+void scheduleAndReport();
+void syncSystemDate();
+void saveCalendar();
+void restoreCalendar();

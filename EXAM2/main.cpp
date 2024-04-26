@@ -6,19 +6,105 @@
 #include "declaration.h"
 using namespace std;
 
+
 int main()
 {
-	MyCalendar test;
-	test.setCurrentMonth(inputInteger("\nEnter a month number (1...12): ", 1,12));
+	do
+	{
+		switch (menuOption())
+		{
+		case 'X': exit(1); break;
+		case 'A': yearSetUp(); break;
+		case 'B': monthSetup(); break;
+		case 'C': daySetUp(); break;
+		case 'D': calendarSetUp(); break;
+		case 'E': scheduleAndReport(); break;
+		case 'F': syncSystemDate(); break;
+		case 'G': saveCalendar(); break;
+		case 'H': restoreCalendar(); break;
+		default: cout << "\n\tERROR - Invalid option. Please re-enter."; break;
+		}
+		cout << "\n";
+		system("pause");
+	} while (true);
 
-	cout << test.getCurrentMonth() << ": " << test.getMonthName() << "\n";
+	return EXIT_SUCCESS;
 
-	cout << test.getDayOfWeek() << '\n';
+	//MyCalendar test;
+	//test.setCurrentMonth(inputInteger("\nEnter a month number (1...12): ", 1,12));
 
-	cout << test.isLeapYear();
+	//cout << test.getCurrentMonth() << ": " << test.getMonthName() << "\n";
+
+	//cout << test.getDayOfWeek() << '\n';
+
+	//cout << test.isLeapYear();
 
 
-
-	return 0;
 }
 
+
+
+char menuOption()
+{
+	system("cls");
+
+	cout << "\n\tCurrent year : ";
+	cout << "\n\t" << string(60, char(196));
+	cout << "\n\tCurrent month: ";
+	cout << "\n\tAwareness    : ";
+	cout << "\n\t" << string(65, char(196));
+	cout << "\n\tCurrent day  : ";
+
+
+	cout << "\n\n\tCMPR121: Exam#2 - MyCalendar - OOP implementations Armando Orozco, Thi Truong, add your names (03/05/24)";
+	cout << "\n\t" << string(90, char(205));
+	cout << "\n\tA. Setting Current Year";
+	cout << "\n\tB. Setting Current Month";
+	cout << "\n\tC. Setting Current Day";
+	cout << "\n\tD. Setting Current Calendar";
+	cout << "\n\tE. Schedule and Report Dates";
+	cout << "\n\t" << string(65, char(196));
+	cout << "\n\tF. Sync to system's date";
+	cout << "\n\tG. Save calendar to file";
+	cout << "\n\tH. Restore calendar from file";
+	cout << "\n\t" << string(65, char(196));
+	cout << "\n\tX. Exit";
+	cout << "\n\t" << string(65, char(205)) << "\n";
+
+	return toupper(inputChar("\n\tOption: ", "ABCDEFGH"));
+}
+
+
+void yearSetUp()
+{
+
+}
+
+void monthSetup()
+{
+}
+
+void daySetUp()
+{
+
+}
+void calendarSetUp()
+{
+
+}
+void scheduleAndReport()
+{
+
+}
+void syncSystemDate()
+{
+
+}
+void saveCalendar()
+{
+
+}
+void restoreCalendar()
+{
+
+}
