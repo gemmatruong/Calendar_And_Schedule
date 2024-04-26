@@ -7,7 +7,9 @@ private:
 	unsigned short currentYear;
 	unsigned short currentMonth;
 	unsigned short currentDay;
-	//MyScheduleDate scheduleDays[12][31];
+	unsigned short daysInMonth;
+	bool leapYear;
+	MyScheduleDate scheduleDays[12][31];
 
 public:
 	MyCalendar();
@@ -15,11 +17,16 @@ public:
 	void setCurrentMonth(int m);
 	unsigned short getCurrentMonth() const;
 
-	string getMonthName();
+	void setYear(int y);
+	void setMonth(int m);
+	void setDay(int d);
 
+	void syncWithSys();
+
+	string getMonthName();
 	string getDayOfWeek();
 
+	void updateDaysInMonth();
 	bool isLeapYear() const;
-
 };
 

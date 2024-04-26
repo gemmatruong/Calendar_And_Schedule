@@ -1,14 +1,28 @@
 // Exam 2
 //main folder, the main menu of the program will be managed thru this file
-//contributors: Armando Orozco,
+//contributors: Armando Orozco, Thi Troung
 
 #include<iostream>
+#include <ctime>
 #include "declaration.h"
 using namespace std;
 
 
+void sysTime(MyCalendar& c) {
+	time_t rawtime = time(0);
+	tm timeinfo;
+	localtime_s(&timeinfo, &rawtime); // Convert to local time
+
+	// Print today's date
+	cout << "Today's date: " << (timeinfo.tm_mon + 1) << '/' << timeinfo.tm_mday << '/' << (timeinfo.tm_year + 1900) << std::endl;
+	
+}
+
 int main()
 {
+
+	
+	MyCalendar* calendar = nullptr;
 	do
 	{
 		switch (menuOption())
@@ -47,7 +61,6 @@ int main()
 char menuOption()
 {
 	system("cls");
-
 	cout << "\n\tCurrent year : ";
 	cout << "\n\t" << string(60, char(196));
 	cout << "\n\tCurrent month: ";

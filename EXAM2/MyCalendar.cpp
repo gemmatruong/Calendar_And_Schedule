@@ -6,7 +6,7 @@ MyCalendar::MyCalendar()
 	currentYear = 1999;
 	currentMonth = 1;
 	currentDay = 1;
-	
+	leapYear = isLeapYear();
 	//for (int m = 0; m < 12; m++)
 	//	for (int d = 0; d < 31; d++)
 	//		scheduleDays[m][d].setValue(d + 1);
@@ -23,6 +23,51 @@ unsigned short MyCalendar::getCurrentMonth() const
 	return currentMonth;
 }
 
+void MyCalendar::setYear( int y)
+{
+    currentYear = y;
+    leapYear = isLeapYear();
+    updateDaysInMonth();
+    return;
+}
+
+void MyCalendar::setMonth(int m)
+{
+    if (m > 12)
+    {
+        setYear(currentYear + 1);
+        currentMonth = 1;
+    }
+    else if (m < 1)
+    {
+        setYear(currentYear - 1);
+        currentMonth = 12;
+    }
+    else
+        currentMonth = m;
+    updateDaysInMonth();
+
+    return;
+}
+
+void MyCalendar::setDay(int d)
+{
+    if (d > daysInMonth)
+    {
+        currentDay = 1;
+        setMonth(currentMonth + 1);
+    }else if (d < 1)
+    {
+        setMonth(currentMonth - 1);
+        currentDay = daysInMonth;
+    }
+    else
+    {
+        currentDay = d;
+    }
+    return;
+}
+
 string  MyCalendar::getMonthName()
 {
 	const string months[13] = { "unknown", "January", "February", "March" , "April", "May", "June", "July", "August", "September", "October" ,"November", "December" };
@@ -32,6 +77,17 @@ string  MyCalendar::getMonthName()
 	else
 		return months[0];
 	
+}
+
+void MyCalendar::syncWithSys()
+{
+    time_t rawtime = time(0);
+    tm timeinfo;
+    localtime_s(&timeinfo, &rawtime); // Convert to local time
+
+    currentMonth = timeinfo.tm_mon + 1;
+    currentDay = timeinfo.tm_mday;
+    currentYear = timeinfo.tm_year + 1900;
 
 }
 
@@ -87,5 +143,24 @@ string MyCalendar::getDayOfWeek()
 bool MyCalendar::isLeapYear() const
 {
     return (currentYear % 400 == 0) || (currentYear % 100 != 0) && (currentYear % 4 == 0);
+}
 
+void MyCalendar::updateDaysInMonth()
+{
+    int month = currentMonth;
+    int year = currentYear;
+    if (month == 4 || month == 6 || month == 9 || month == 11) {
+        daysInMonth= 30; // Months with 30 days
+    }
+    else if (month == 2) {
+        if (leapYear) {
+            daysInMonth = 29; // February in a leap year
+        }
+        else {
+            daysInMonth = 28; // February in a non-leap year
+        }
+    }
+    else {
+        daysInMonth = 31; // Months with 31 days
+    }
 }
