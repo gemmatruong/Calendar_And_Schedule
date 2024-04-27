@@ -5,8 +5,10 @@
 
 #include "input.h"
 #include "MyUnit.h"
+#include <ctime>
 #include "MyScheduleDate.h"
 #include "MyCalendar.h"
+
 
 char menuOption();
 
@@ -18,3 +20,4 @@ void scheduleAndReport();
 void syncSystemDate();
 void saveCalendar();
 void restoreCalendar();
+
