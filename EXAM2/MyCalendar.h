@@ -17,17 +17,21 @@ public:
 	void setCurrentMonth(int m);
 	unsigned short getCurrentMonth() const;
 
-	void setYear(int y);
-	void setMonth(int m);
-	void setDay(int d);
 
-	void syncWithSys();
+	void setCurrentYear(int y);
+	unsigned short getCurrentYear() const;
+
+	void setCurrentDay(int m);
+	unsigned short getCurrentDay() const;
+
+	int* getSystemDate() const;
 
 	string getMonthName();
 	string getDayOfWeek();
 
 	void updateDaysInMonth();
-	bool isLeapYear() const; 
+
+	bool isLeapYear() const;
 
 };
 

@@ -3,27 +3,19 @@
 
 MyCalendar::MyCalendar()
 {
-	currentYear = 1999;
-	currentMonth = 1;
-	currentDay = 1;
+
+    int* date = getSystemDate();
+
+	currentMonth = date[0];
+	currentDay = date[1];
+    currentYear = date[2];
 	leapYear = isLeapYear();
 	//for (int m = 0; m < 12; m++)
 	//	for (int d = 0; d < 31; d++)
 	//		scheduleDays[m][d].setValue(d + 1);
 }
 
-
-void MyCalendar::setCurrentMonth(int m)
-{
-	currentMonth = static_cast<unsigned short>(m);
-}
-
-unsigned short MyCalendar::getCurrentMonth() const
-{
-	return currentMonth;
-}
-
-void MyCalendar::setYear( int y)
+void MyCalendar::setCurrentYear(int y)
 {
     currentYear = y;
     leapYear = isLeapYear();
@@ -31,16 +23,21 @@ void MyCalendar::setYear( int y)
     return;
 }
 
-void MyCalendar::setMonth(int m)
+unsigned short MyCalendar::getCurrentYear() const
 {
-    if (m > 12)
+    return currentYear;
+}
+
+void MyCalendar::setCurrentMonth(int m)
+{
+	 if (m > 12)
     {
-        setYear(currentYear + 1);
+         setCurrentYear(currentYear + 1);
         currentMonth = 1;
     }
     else if (m < 1)
     {
-        setYear(currentYear - 1);
+         setCurrentYear(currentYear - 1);
         currentMonth = 12;
     }
     else
@@ -50,15 +47,21 @@ void MyCalendar::setMonth(int m)
     return;
 }
 
-void MyCalendar::setDay(int d)
+unsigned short MyCalendar::getCurrentMonth() const
 {
-    if (d > daysInMonth)
+	return currentMonth;
+}
+
+
+void MyCalendar::setCurrentDay(int d)
+{
+     if (d > daysInMonth)
     {
         currentDay = 1;
-        setMonth(currentMonth + 1);
+        setCurrentMonth(currentMonth + 1);
     }else if (d < 1)
     {
-        setMonth(currentMonth - 1);
+        setCurrentMonth(currentMonth - 1);
         currentDay = daysInMonth;
     }
     else
@@ -66,6 +69,11 @@ void MyCalendar::setDay(int d)
         currentDay = d;
     }
     return;
+}
+
+unsigned short MyCalendar::getCurrentDay() const
+{
+    return currentDay;
 }
 
 string  MyCalendar::getMonthName()
@@ -77,18 +85,6 @@ string  MyCalendar::getMonthName()
 	else
 		return months[0];
 	
-}
-
-void MyCalendar::syncWithSys()
-{
-    time_t rawtime = time(0);
-    tm timeinfo;
-    localtime_s(&timeinfo, &rawtime); // Convert to local time
-
-    currentMonth = timeinfo.tm_mon + 1;
-    currentDay = timeinfo.tm_mday;
-    currentYear = timeinfo.tm_year + 1900;
-
 }
 
 string MyCalendar::getDayOfWeek()
@@ -143,6 +139,29 @@ string MyCalendar::getDayOfWeek()
 bool MyCalendar::isLeapYear() const
 {
     return (currentYear % 400 == 0) || (currentYear % 100 != 0) && (currentYear % 4 == 0);
+}
+
+
+// Precondition: NA
+// Postcondition: return an array of integers holding month, day, year of the system date
+int* MyCalendar::getSystemDate() const
+{
+    int date[3];
+
+    // Get current time
+    time_t t = time(nullptr);
+
+    // initialize a tm structure which is used to break down time object into month, day, year, etc.
+    tm today;
+
+    // localtime_s() function is called to convert time value to a structure of tm
+    localtime_s(&today, &t);
+
+    date[0] = today.tm_mon + 1;		// tm structure uses 0 for January and so on
+    date[1] = today.tm_mday;
+    date[2] = today.tm_year + 1900;	// tm structure uses year from 1900
+
+    return date;
 }
 
 void MyCalendar::updateDaysInMonth()
