@@ -164,6 +164,8 @@ int* MyCalendar::getSystemDate() const
     return date;
 }
 
+//Precondition: NA
+//postcondition: changes the values of the day in case they are wrong
 void MyCalendar::updateDaysInMonth()
 {
     int month = currentMonth;
