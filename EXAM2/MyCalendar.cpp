@@ -18,7 +18,7 @@ MyCalendar::MyCalendar()
 void MyCalendar::setCurrentYear(int y)
 {
     currentYear = y;
-    leapYear = isLeapYear();
+    leapYear = isLeapYear();//update leap years
     updateDaysInMonth();
     return;
 }
