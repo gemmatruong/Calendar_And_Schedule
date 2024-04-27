@@ -31,6 +31,7 @@ public:
 	string getDayOfWeek();
 
 	void updateDaysInMonth();
+
 	bool isLeapYear() const;
 
 };
