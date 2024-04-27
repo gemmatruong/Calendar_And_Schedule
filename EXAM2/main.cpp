@@ -1,6 +1,8 @@
 // Exam 2
 //main folder, the main menu of the program will be managed thru this file
+
 //contributors: Armando Orozco, Thi Troung
+
 
 #include<iostream>
 #include <ctime>
@@ -44,29 +46,25 @@ int main()
 
 	return EXIT_SUCCESS;
 
-	//MyCalendar test;
-	//test.setCurrentMonth(inputInteger("\nEnter a month number (1...12): ", 1,12));
-
-	//cout << test.getCurrentMonth() << ": " << test.getMonthName() << "\n";
-
-	//cout << test.getDayOfWeek() << '\n';
-
-	//cout << test.isLeapYear();
-
-
 }
-
 
 
 char menuOption()
 {
 	system("cls");
-	cout << "\n\tCurrent year : ";
+
+	MyCalendar test;
+
+	cout << "\n\tCurrent year : " << test.getCurrentYear() << " (" << (test.isLeapYear() ? "leap)" : "non-leap)");
 	cout << "\n\t" << string(60, char(196));
-	cout << "\n\tCurrent month: ";
+	cout << "\n\tCurrent month: " << test.getCurrentMonth() << " - " << test.getMonthName();;
 	cout << "\n\tAwareness    : ";
 	cout << "\n\t" << string(65, char(196));
-	cout << "\n\tCurrent day  : ";
+	cout << "\n\tCurrent day  : " << test.getCurrentDay() << " - " << test.getDayOfWeek();
+
+	cout << "\n\t" << string(65, char(196));
+
+
 
 
 	cout << "\n\n\tCMPR121: Exam#2 - MyCalendar - OOP implementations Armando Orozco, Thi Truong, add your names (03/05/24)";
@@ -86,6 +84,7 @@ char menuOption()
 
 	return toupper(inputChar("\n\tOption: ", "ABCDEFGH"));
 }
+
 
 
 void yearSetUp()
