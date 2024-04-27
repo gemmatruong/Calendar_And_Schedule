@@ -25,11 +25,8 @@ public:
 	unsigned short getCurrentDay() const;
 
 	string getMonthName();
-
-
-	string getMonthName();
 	string getDayOfWeek();
-
+	int* getSystemDate() const;
 	void updateDaysInMonth();
 
 	bool isLeapYear() const;
