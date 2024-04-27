@@ -3,13 +3,13 @@
 
 MyCalendar::MyCalendar()
 {
+
     int* date = getSystemDate();
 
 	currentMonth = date[0];
 	currentDay = date[1];
     currentYear = date[2];
-
-	
+	leapYear = isLeapYear();
 	//for (int m = 0; m < 12; m++)
 	//	for (int d = 0; d < 31; d++)
 	//		scheduleDays[m][d].setValue(d + 1);
@@ -17,7 +17,10 @@ MyCalendar::MyCalendar()
 
 void MyCalendar::setCurrentYear(int y)
 {
-    currentMonth = static_cast<unsigned short>(y);
+    currentYear = y;
+    leapYear = isLeapYear();
+    updateDaysInMonth();
+    return;
 }
 
 unsigned short MyCalendar::getCurrentYear() const
@@ -25,11 +28,23 @@ unsigned short MyCalendar::getCurrentYear() const
     return currentYear;
 }
 
-
-
 void MyCalendar::setCurrentMonth(int m)
 {
-	currentMonth = static_cast<unsigned short>(m);
+	 if (m > 12)
+    {
+        setYear(currentYear + 1);
+        currentMonth = 1;
+    }
+    else if (m < 1)
+    {
+        setYear(currentYear - 1);
+        currentMonth = 12;
+    }
+    else
+        currentMonth = m;
+    updateDaysInMonth();
+
+    return;
 }
 
 unsigned short MyCalendar::getCurrentMonth() const
@@ -37,9 +52,23 @@ unsigned short MyCalendar::getCurrentMonth() const
 	return currentMonth;
 }
 
+
 void MyCalendar::setCurrentDay(int d)
 {
-    currentDay = static_cast<unsigned short>(d);
+     if (d > daysInMonth)
+    {
+        currentDay = 1;
+        setMonth(currentMonth + 1);
+    }else if (d < 1)
+    {
+        setMonth(currentMonth - 1);
+        currentDay = daysInMonth;
+    }
+    else
+    {
+        currentDay = d;
+    }
+    return;
 }
 
 unsigned short MyCalendar::getCurrentDay() const
@@ -56,7 +85,6 @@ string  MyCalendar::getMonthName()
 	else
 		return months[0];
 	
-
 }
 
 string MyCalendar::getDayOfWeek()
@@ -111,7 +139,6 @@ string MyCalendar::getDayOfWeek()
 bool MyCalendar::isLeapYear() const
 {
     return (currentYear % 400 == 0) || (currentYear % 100 != 0) && (currentYear % 4 == 0);
-
 }
 
 
@@ -135,4 +162,24 @@ int* MyCalendar::getSystemDate() const
     date[2] = today.tm_year + 1900;	// tm structure uses year from 1900
 
     return date;
+}
+
+void MyCalendar::updateDaysInMonth()
+{
+    int month = currentMonth;
+    int year = currentYear;
+    if (month == 4 || month == 6 || month == 9 || month == 11) {
+        daysInMonth= 30; // Months with 30 days
+    }
+    else if (month == 2) {
+        if (leapYear) {
+            daysInMonth = 29; // February in a leap year
+        }
+        else {
+            daysInMonth = 28; // February in a non-leap year
+        }
+    }
+    else {
+        daysInMonth = 31; // Months with 31 days
+    }
 }
