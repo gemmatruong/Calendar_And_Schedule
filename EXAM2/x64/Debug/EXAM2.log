@@ -1,1 +1,7 @@
-﻿  EXAM2.vcxproj -> C:\Users\truon\source\repos\armando013005\CMPR-121-EXAM-2\x64\Debug\EXAM2.exe
+﻿  main.cpp
+  MyCalendar.cpp
+  MyScheduleDate.cpp
+  MyUnit.cpp
+  Generating Code...
+C:\Users\arman\OneDrive - Rancho Santiago Community College District\SCHOOL\CMPR121\EXAM 2\CMPR-121-EXAM-2\EXAM2\MyCalendar.cpp(164): warning C4172: returning address of local variable or temporary: date
+  EXAM2.vcxproj -> C:\Users\arman\OneDrive - Rancho Santiago Community College District\SCHOOL\CMPR121\EXAM 2\CMPR-121-EXAM-2\x64\Debug\EXAM2.exe
