@@ -24,7 +24,8 @@ public:
 	void setCurrentDay(int m);
 	unsigned short getCurrentDay() const;
 
-	int* getSystemDate() const;
+	string getMonthName();
+
 
 	string getMonthName();
 	string getDayOfWeek();
