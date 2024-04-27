@@ -32,12 +32,12 @@ void MyCalendar::setCurrentMonth(int m)
 {
 	 if (m > 12)
     {
-        setYear(currentYear + 1);
+         setCurrentYear(currentYear + 1);
         currentMonth = 1;
     }
     else if (m < 1)
     {
-        setYear(currentYear - 1);
+         setCurrentYear(currentYear - 1);
         currentMonth = 12;
     }
     else
@@ -58,10 +58,10 @@ void MyCalendar::setCurrentDay(int d)
      if (d > daysInMonth)
     {
         currentDay = 1;
-        setMonth(currentMonth + 1);
+        setCurrentMonth(currentMonth + 1);
     }else if (d < 1)
     {
-        setMonth(currentMonth - 1);
+        setCurrentMonth(currentMonth - 1);
         currentDay = daysInMonth;
     }
     else
