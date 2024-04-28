@@ -33,5 +33,6 @@ public:
 
 	bool isLeapYear() const;
 
+	void updateToSystemDate();
 };
 

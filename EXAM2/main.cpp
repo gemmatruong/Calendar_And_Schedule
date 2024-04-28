@@ -26,7 +26,7 @@ int main()
 		case 'C': daySetUp(); break;
 		case 'D': calendarSetUp(); break;
 		case 'E': scheduleAndReport(); break;
-		case 'F': syncSystemDate(); break;
+		case 'F': calendar->updateToSystemDate(); break;
 		case 'G': saveCalendar(); break;
 		case 'H': restoreCalendar(); break;
 		default: cout << "\n\tERROR - Invalid option. Please re-enter."; break;
@@ -87,7 +87,7 @@ void yearSetUp(MyCalendar* c)
 		switch (inputInteger("\n\tOption: ", 0, 1))
 		{
 		case 0: return; break;
-	case 1:c->setCurrentYear(inputInteger("\n\tSet enter the year (1..9999): ", 1, 9999));  break;
+		case 1:c->setCurrentYear(inputInteger("\n\tSet enter the year (1..9999): ", 1, 9999));  break;
 		default: cout << "\n\tERROR - Invalid option. Please re-enter."; break;
 		}
 		cout << "\n";
@@ -112,10 +112,7 @@ void scheduleAndReport()
 {
 
 }
-void syncSystemDate()
-{
 
-}
 void saveCalendar()
 {
 

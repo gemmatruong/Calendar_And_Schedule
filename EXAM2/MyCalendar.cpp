@@ -76,6 +76,16 @@ unsigned short MyCalendar::getCurrentDay() const
     return currentDay;
 }
 
+void MyCalendar::updateToSystemDate()
+{
+    int* date = getSystemDate();
+
+    currentMonth = date[0];
+    currentDay = date[1];
+    currentYear = date[2];
+    leapYear = isLeapYear();
+}
+
 string  MyCalendar::getMonthName()
 {
 	const string months[13] = { "unknown", "January", "February", "March" , "April", "May", "June", "July", "August", "September", "October" ,"November", "December" };
