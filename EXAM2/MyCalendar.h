@@ -35,6 +35,8 @@ public:
 
 	MyCalendar operator++();				// prefix(++)
 	MyCalendar operator++(int);				// postfix(++)
+	MyCalendar operator--();				// prefix(--)
+	MyCalendar operator--(int);				// postfix(--)
 
 	friend ostream& operator<<(ostream& out, const MyCalendar& obj);
 

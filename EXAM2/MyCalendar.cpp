@@ -262,7 +262,8 @@ string MyCalendar::yearToWords() const
 
 }
 
-
+// Precondition: used with a MyCalendar Object
+// Postcondition: overloaded a prefix increment. Return a MyCalendar object after increasing 1 day.
 MyCalendar MyCalendar::operator++()
 {
     updateDaysInMonth();
@@ -289,6 +290,8 @@ MyCalendar MyCalendar::operator++()
     return *this;
 }
 
+// Precondition: used with a MyCalendar Object
+// Postcondition: overloaded a postfix increment. Return MyCalendar Object, then increase 1 day.
 MyCalendar MyCalendar::operator++(int)
 {
     MyCalendar temp(*this);	// Copy constructor
@@ -317,10 +320,72 @@ MyCalendar MyCalendar::operator++(int)
     return temp;
 }
 
+// Precondition: used with a MyCalendar Object
+// Postcondition: overloaded a prefix decrement. Return a MyCalendar object after decreasing 1 day.
+MyCalendar MyCalendar::operator--()
+{
+    updateDaysInMonth();
+
+    if (currentMonth == 1 && currentDay == 1)
+    {
+        setCurrentMonth(12);
+        setCurrentDay(31);
+        currentYear--;
+        setCurrentYear(currentYear);
+    }
+    else if (currentDay == 1)
+    {
+        currentMonth--;
+        setCurrentMonth(currentMonth);
+        currentDay = daysInMonth;
+        setCurrentDay(currentDay);
+    }
+    else
+    {
+        currentDay--;
+        setCurrentDay(currentDay);
+    }
+
+    return *this;
+}
+
+// Precondition: used with a MyCalendar Object
+// Postcondition: overloaded a postfix decrement. Return MyCalendar Object, then decrease 1 day.
+MyCalendar MyCalendar::operator--(int)
+{
+    MyCalendar temp(*this);
+
+    updateDaysInMonth();
+
+    if (currentMonth == 1 && currentDay == 1)
+    {
+        setCurrentMonth(12);
+        setCurrentDay(31);
+        currentYear--;
+        setCurrentYear(currentYear);
+    }
+    else if (currentDay == 1)
+    {
+        currentMonth--;
+        setCurrentMonth(currentMonth);
+        currentDay = daysInMonth;
+        setCurrentDay(currentDay);
+    }
+    else
+    {
+        currentDay--;
+        setCurrentDay(currentDay);
+    }
+
+    return temp;
+}
+
 ostream& operator<<(ostream& out, const MyCalendar& obj)
 {
     out << "\n\t" << obj.getDayOfWeek() << ", " << obj.getMonthName() << " "
         << obj.getCurrentDay() << ", " << obj.getCurrentYear();
+
+    out << "\n\t" << obj.getCurrentMonth() << "/" << obj.getCurrentDay() << "/" << obj.getCurrentYear();
 
     return out;
 }
