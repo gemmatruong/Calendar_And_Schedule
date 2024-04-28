@@ -165,8 +165,8 @@ int* MyCalendar::getSystemDate() const
 }
 
 //Precondition: NA
-//postcondition: changes the values of the day in case they are wrong
-void MyCalendar::updateDaysInMonth()
+//postcondition: changes the values of the day in case they are wrong and returns the value
+int MyCalendar::updateDaysInMonth()
 {
     int month = currentMonth;
     int year = currentYear;
@@ -184,4 +184,5 @@ void MyCalendar::updateDaysInMonth()
     else {
         daysInMonth = 31; // Months with 31 days
     }
+    return daysInMonth;
 }
