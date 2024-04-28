@@ -26,6 +26,8 @@ public:
 
 	string getMonthName();
 	string getDayOfWeek();
+	string yearToWords() const;
+
 	int* getSystemDate() const;
 	int updateDaysInMonth();
 

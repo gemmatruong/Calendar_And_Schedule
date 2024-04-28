@@ -186,3 +186,66 @@ int MyCalendar::updateDaysInMonth()
     }
     return daysInMonth;
 }
+
+string MyCalendar::yearToWords() const
+{
+    int n = currentYear;
+    // Helper arrays for ones, teens, and tens
+    const string ones[] = {
+        "", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
+        "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen",
+        "seventeen", "eighteen", "nineteen"
+    };
+    const string tens[] = {
+        "", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty",
+        "ninety"
+    };
+
+    if (n == 0) {
+        return "zero";
+    }
+
+    string words;
+    int thousands = n / 1000;//get the first digit
+    n %= 1000;
+    int hundreds = n / 100;//get the seccond digit
+    n %= 100;//rest of the numbers are the last 2 digits
+
+    // Handle thousands place
+    if (thousands > 0 && thousands < 20) {
+        words += ones[thousands] + " thousand";
+    }
+
+    // Handle hundreds place
+    if (hundreds > 0) {
+        words += (words.empty() ? "" : " ") + ones[hundreds] + " hundred";
+    }
+
+    // Handle tens and ones place
+    if (n == 0) {
+        return words;
+    }
+
+    if (n < 20) {
+        words += (words.empty() ? "" : " ") + ones[n];
+    }
+    else {
+        int tens_digit = n / 10;
+        int ones_digit = n % 10;
+
+        if (tens_digit > 0) {
+            words += (words.empty() ? "" : " ") + tens[tens_digit];
+        }
+
+        if (ones_digit > 0) {
+            if (tens_digit == 1) {
+                words += (words.empty() ? "" : " ") + ones[ones_digit];
+            }
+            else {
+                words += (words.empty() ? "" : " ") + ones[ones_digit];
+            }
+        }
+    }
+
+    return words;
+}

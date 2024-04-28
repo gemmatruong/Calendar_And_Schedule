@@ -10,9 +10,9 @@
 #include "MyCalendar.h"
 
 
-char menuOption();
+char menuOption(MyCalendar*);
 
-void yearSetUp();
+void yearSetUp(MyCalendar* c);
 void monthSetup();
 void daySetUp();
 void calendarSetUp();
