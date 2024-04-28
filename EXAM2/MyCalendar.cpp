@@ -10,6 +10,7 @@ MyCalendar::MyCalendar()
 	currentDay = date[1];
     currentYear = date[2];
 	leapYear = isLeapYear();
+
 	//for (int m = 0; m < 12; m++)
 	//	for (int d = 0; d < 31; d++)
 	//		scheduleDays[m][d].setValue(d + 1);
@@ -76,7 +77,7 @@ unsigned short MyCalendar::getCurrentDay() const
     return currentDay;
 }
 
-string  MyCalendar::getMonthName()
+string  MyCalendar::getMonthName() const
 {
 	const string months[13] = { "unknown", "January", "February", "March" , "April", "May", "June", "July", "August", "September", "October" ,"November", "December" };
 
@@ -87,7 +88,7 @@ string  MyCalendar::getMonthName()
 	
 }
 
-string MyCalendar::getDayOfWeek()
+string MyCalendar::getDayOfWeek() const
 {
     int month = currentMonth;
     int year = currentYear;
@@ -184,4 +185,67 @@ void MyCalendar::updateDaysInMonth()
     else {
         daysInMonth = 31; // Months with 31 days
     }
+}
+
+
+MyCalendar MyCalendar::operator++()
+{
+    updateDaysInMonth();
+
+    if (currentMonth == 12 && currentDay == 31)
+    {
+        setCurrentMonth(1);
+        setCurrentDay(1);
+        currentYear++;
+        setCurrentYear(currentYear);
+    }
+    else if (currentDay == daysInMonth)
+    {
+        currentMonth++;
+        setCurrentMonth(currentMonth);
+        setCurrentDay(1);
+    }
+    else
+    {
+        currentDay++;
+        setCurrentDay(currentDay);
+    }
+
+    return *this;
+}
+
+MyCalendar MyCalendar::operator++(int)
+{
+    MyCalendar temp(*this);	// Copy constructor
+
+    updateDaysInMonth();
+
+    if (currentMonth == 12 && currentDay == 31)
+    {
+        setCurrentMonth(1);
+        setCurrentDay(1);
+        currentYear++;
+        setCurrentYear(currentYear);
+    }
+    else if (currentDay == daysInMonth)
+    {
+        currentMonth++;
+        setCurrentMonth(currentMonth);
+        setCurrentDay(1);
+    }
+    else
+    {
+        currentDay++;
+        setCurrentDay(currentDay);
+    }
+
+    return temp;
+}
+
+ostream& operator<<(ostream& out, const MyCalendar& obj)
+{
+    out << "\n\t" << obj.getDayOfWeek() << ", " << obj.getMonthName() << " "
+        << obj.getCurrentDay() << ", " << obj.getCurrentYear();
+
+    return out;
 }

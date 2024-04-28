@@ -62,6 +62,7 @@ char menuOption()
 	cout << "\n\t" << string(65, char(196));
 	cout << "\n\tCurrent day  : " << test.getCurrentDay() << " - " << test.getDayOfWeek();
 
+
 	cout << "\n\t" << string(65, char(196));
 
 

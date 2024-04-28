@@ -36,9 +36,10 @@
               "RelativeDocumentMoniker": "EXAM2\\MyCalendar.h",
               "ToolTip": "C:\\Users\\truon\\source\\repos\\armando013005\\CMPR-121-EXAM-2\\EXAM2\\MyCalendar.h",
               "RelativeToolTip": "EXAM2\\MyCalendar.h",
-              "ViewState": "AQIAABUAAAAAAAAAAAAAABwAAAAAAAAA",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAABsAAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-04-26T05:18:54.778Z"
+              "WhenOpened": "2024-04-26T05:18:54.778Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -48,9 +49,10 @@
               "RelativeDocumentMoniker": "EXAM2\\MyCalendar.cpp",
               "ToolTip": "C:\\Users\\truon\\source\\repos\\armando013005\\CMPR-121-EXAM-2\\EXAM2\\MyCalendar.cpp",
               "RelativeToolTip": "EXAM2\\MyCalendar.cpp",
-              "ViewState": "AQIAAG4AAAAAAAAAAAAAAHkAAAAQAAAA",
+              "ViewState": "AQIAAJ4AAAAAAAAAAAAcwFoAAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-04-26T02:38:35.689Z"
+              "WhenOpened": "2024-04-26T02:38:35.689Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -60,9 +62,10 @@
               "RelativeDocumentMoniker": "EXAM2\\declaration.h",
               "ToolTip": "C:\\Users\\truon\\source\\repos\\armando013005\\CMPR-121-EXAM-2\\EXAM2\\declaration.h",
               "RelativeToolTip": "EXAM2\\declaration.h",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAAABYAAAAAAAAA",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABYAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-04-26T02:36:21.694Z"
+              "WhenOpened": "2024-04-26T02:36:21.694Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -72,7 +75,7 @@
               "RelativeDocumentMoniker": "EXAM2\\main.cpp",
               "ToolTip": "C:\\Users\\truon\\source\\repos\\armando013005\\CMPR-121-EXAM-2\\EXAM2\\main.cpp",
               "RelativeToolTip": "EXAM2\\main.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAKAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAADcAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-04-26T02:33:37.411Z",
               "EditorCaption": ""
