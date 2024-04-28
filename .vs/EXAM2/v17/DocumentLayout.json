@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\truon\\source\\repos\\armando013005\\CMPR-121-EXAM-2\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{759B570B-D8C7-40B4-AC03-E60CF59530D1}|EXAM2\\EXAM2.vcxproj|C:\\Users\\truon\\source\\repos\\armando013005\\CMPR-121-EXAM-2\\EXAM2\\MyCalendar.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{759B570B-D8C7-40B4-AC03-E60CF59530D1}|EXAM2\\EXAM2.vcxproj|solutionrelative:EXAM2\\MyCalendar.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{759B570B-D8C7-40B4-AC03-E60CF59530D1}|EXAM2\\EXAM2.vcxproj|C:\\Users\\truon\\source\\repos\\armando013005\\CMPR-121-EXAM-2\\EXAM2\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{759B570B-D8C7-40B4-AC03-E60CF59530D1}|EXAM2\\EXAM2.vcxproj|solutionrelative:EXAM2\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{759B570B-D8C7-40B4-AC03-E60CF59530D1}|EXAM2\\EXAM2.vcxproj|C:\\Users\\truon\\source\\repos\\armando013005\\CMPR-121-EXAM-2\\EXAM2\\MyCalendar.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{759B570B-D8C7-40B4-AC03-E60CF59530D1}|EXAM2\\EXAM2.vcxproj|solutionrelative:EXAM2\\MyCalendar.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{759B570B-D8C7-40B4-AC03-E60CF59530D1}|EXAM2\\EXAM2.vcxproj|C:\\Users\\truon\\source\\repos\\armando013005\\CMPR-121-EXAM-2\\EXAM2\\MyCalendar.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{759B570B-D8C7-40B4-AC03-E60CF59530D1}|EXAM2\\EXAM2.vcxproj|solutionrelative:EXAM2\\MyCalendar.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{759B570B-D8C7-40B4-AC03-E60CF59530D1}|EXAM2\\EXAM2.vcxproj|C:\\Users\\truon\\source\\repos\\armando013005\\CMPR-121-EXAM-2\\EXAM2\\declaration.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -26,30 +26,30 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "MyCalendar.h",
               "DocumentMoniker": "C:\\Users\\truon\\source\\repos\\armando013005\\CMPR-121-EXAM-2\\EXAM2\\MyCalendar.h",
               "RelativeDocumentMoniker": "EXAM2\\MyCalendar.h",
               "ToolTip": "C:\\Users\\truon\\source\\repos\\armando013005\\CMPR-121-EXAM-2\\EXAM2\\MyCalendar.h",
               "RelativeToolTip": "EXAM2\\MyCalendar.h",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAAABsAAAAUAAAA",
+              "ViewState": "AQIAABMAAAAAAAAAAAAvwBoAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-04-26T05:18:54.778Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "MyCalendar.cpp",
               "DocumentMoniker": "C:\\Users\\truon\\source\\repos\\armando013005\\CMPR-121-EXAM-2\\EXAM2\\MyCalendar.cpp",
               "RelativeDocumentMoniker": "EXAM2\\MyCalendar.cpp",
               "ToolTip": "C:\\Users\\truon\\source\\repos\\armando013005\\CMPR-121-EXAM-2\\EXAM2\\MyCalendar.cpp",
               "RelativeToolTip": "EXAM2\\MyCalendar.cpp",
-              "ViewState": "AQIAAJ4AAAAAAAAAAAAcwFoAAAAnAAAA",
+              "ViewState": "AQIAADgBAAAAAAAAAAAAAAUBAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-04-26T02:38:35.689Z",
               "EditorCaption": ""
@@ -69,13 +69,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\Users\\truon\\source\\repos\\armando013005\\CMPR-121-EXAM-2\\EXAM2\\main.cpp",
               "RelativeDocumentMoniker": "EXAM2\\main.cpp",
               "ToolTip": "C:\\Users\\truon\\source\\repos\\armando013005\\CMPR-121-EXAM-2\\EXAM2\\main.cpp",
               "RelativeToolTip": "EXAM2\\main.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAADcAAAARAAAA",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAACMAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-04-26T02:33:37.411Z",
               "EditorCaption": ""

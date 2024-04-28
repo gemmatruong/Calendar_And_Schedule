@@ -24,10 +24,12 @@ public:
 	void setCurrentDay(int m);
 	unsigned short getCurrentDay() const;
 
+	string yearToWords() const;
+
 	string getMonthName() const;
 	string getDayOfWeek() const;
 	int* getSystemDate() const;
-	void updateDaysInMonth();
+	int updateDaysInMonth();
 
 	bool isLeapYear() const;
 
@@ -36,5 +38,6 @@ public:
 
 	friend ostream& operator<<(ostream& out, const MyCalendar& obj);
 
+	void updateToSystemDate();
 };
 
