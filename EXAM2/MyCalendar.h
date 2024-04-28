@@ -26,8 +26,10 @@ public:
 
 	string getMonthName();
 	string getDayOfWeek();
+	string yearToWords() const;
+
 	int* getSystemDate() const;
-	void updateDaysInMonth();
+	int updateDaysInMonth();
 
 	bool isLeapYear() const;
 

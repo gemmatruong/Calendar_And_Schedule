@@ -10,27 +10,18 @@
 using namespace std;
 
 
-void sysTime(MyCalendar& c) {
-	time_t rawtime = time(0);
-	tm timeinfo;
-	localtime_s(&timeinfo, &rawtime); // Convert to local time
-
-	// Print today's date
-	cout << "Today's date: " << (timeinfo.tm_mon + 1) << '/' << timeinfo.tm_mday << '/' << (timeinfo.tm_year + 1900) << std::endl;
-	
-}
-
 int main()
 {
 
 	
-	MyCalendar* calendar = nullptr;
+	MyCalendar* calendar = new MyCalendar();
+	
 	do
 	{
-		switch (menuOption())
+		switch (menuOption(calendar))
 		{
 		case 'X': exit(1); break;
-		case 'A': yearSetUp(); break;
+		case 'A': yearSetUp(calendar); break;
 		case 'B': monthSetup(); break;
 		case 'C': daySetUp(); break;
 		case 'D': calendarSetUp(); break;
@@ -49,23 +40,19 @@ int main()
 }
 
 
-char menuOption()
+char menuOption(MyCalendar* test)
 {
 	system("cls");
 
-	MyCalendar test;
 
-	cout << "\n\tCurrent year : " << test.getCurrentYear() << " (" << (test.isLeapYear() ? "leap)" : "non-leap)");
+	cout << "\n\tCurrent year : " << test->getCurrentYear() << " - " << test->yearToWords() << " (" << (test->isLeapYear() ? "leap)" : "non-leap)");
 	cout << "\n\t" << string(60, char(196));
-	cout << "\n\tCurrent month: " << test.getCurrentMonth() << " - " << test.getMonthName();;
+	cout << "\n\tCurrent month: " << test->getCurrentMonth() << " - " << test->getMonthName();;
 	cout << "\n\tAwareness    : ";
 	cout << "\n\t" << string(65, char(196));
-	cout << "\n\tCurrent day  : " << test.getCurrentDay() << " - " << test.getDayOfWeek();
+	cout << "\n\tCurrent day  : " << test->getCurrentDay() << " - " << test->getDayOfWeek();
 
 	cout << "\n\t" << string(65, char(196));
-
-
-
 
 	cout << "\n\n\tCMPR121: Exam#2 - MyCalendar - OOP implementations Armando Orozco, Thi Truong, add your names (03/05/24)";
 	cout << "\n\t" << string(90, char(205));
@@ -85,10 +72,27 @@ char menuOption()
 	return toupper(inputChar("\n\tOption: ", "ABCDEFGH"));
 }
 
-
-
-void yearSetUp()
+void yearSetUp(MyCalendar* c)
 {
+
+	do
+	{
+		system("cls");
+		cout << "\n\n\tCurrent year: " << c->getCurrentYear()<< " - " << c->yearToWords();
+		cout << "\n\t" << string(90, char(205));
+		cout << "\n\t1. Set Current Year";
+		cout << "\n\t" << string(65, char(196));
+		cout << "\n\t0. Exit";
+		cout << "\n\t" << string(65, char(205)) << "\n";
+		switch (inputInteger("\n\tOption: ", 0, 1))
+		{
+		case 0: return; break;
+	case 1:c->setCurrentYear(inputInteger("\n\tSet enter the year (1..9999): ", 1, 9999));  break;
+		default: cout << "\n\tERROR - Invalid option. Please re-enter."; break;
+		}
+		cout << "\n";
+		system("pause");
+	} while (true);
 
 }
 
