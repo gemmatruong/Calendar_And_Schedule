@@ -24,14 +24,21 @@ public:
 	void setCurrentDay(int m);
 	unsigned short getCurrentDay() const;
 
-	string getMonthName();
-	string getDayOfWeek();
 	string yearToWords() const;
 
+	string getMonthName() const;
+	string getDayOfWeek() const;
 	int* getSystemDate() const;
 	int updateDaysInMonth();
 
 	bool isLeapYear() const;
+
+	MyCalendar operator++();				// prefix(++)
+	MyCalendar operator++(int);				// postfix(++)
+	MyCalendar operator--();				// prefix(--)
+	MyCalendar operator--(int);				// postfix(--)
+
+	friend ostream& operator<<(ostream& out, const MyCalendar& obj);
 
 	void updateToSystemDate();
 };
