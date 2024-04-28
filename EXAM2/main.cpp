@@ -2,7 +2,7 @@
 //main folder, the main menu of the program will be managed thru this file
 
 //contributors: Armando Orozco, Thi Troung
-
+//test
 
 #include<iostream>
 #include <ctime>
