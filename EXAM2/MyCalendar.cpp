@@ -10,6 +10,7 @@ MyCalendar::MyCalendar()
 	currentDay = date[1];
     currentYear = date[2];
 	leapYear = isLeapYear();
+
 	//for (int m = 0; m < 12; m++)
 	//	for (int d = 0; d < 31; d++)
 	//		scheduleDays[m][d].setValue(d + 1);
@@ -86,7 +87,7 @@ void MyCalendar::updateToSystemDate()
     leapYear = isLeapYear();
 }
 
-string  MyCalendar::getMonthName()
+string  MyCalendar::getMonthName() const
 {
 	const string months[13] = { "unknown", "January", "February", "March" , "April", "May", "June", "July", "August", "September", "October" ,"November", "December" };
 
@@ -97,7 +98,7 @@ string  MyCalendar::getMonthName()
 	
 }
 
-string MyCalendar::getDayOfWeek()
+string MyCalendar::getDayOfWeek() const
 {
     int month = currentMonth;
     int year = currentYear;
@@ -258,4 +259,133 @@ string MyCalendar::yearToWords() const
     }
 
     return words;
+
+}
+
+// Precondition: used with a MyCalendar Object
+// Postcondition: overloaded a prefix increment. Return a MyCalendar object after increasing 1 day.
+MyCalendar MyCalendar::operator++()
+{
+    updateDaysInMonth();
+
+    if (currentMonth == 12 && currentDay == 31)
+    {
+        setCurrentMonth(1);
+        setCurrentDay(1);
+        currentYear++;
+        setCurrentYear(currentYear);
+    }
+    else if (currentDay == daysInMonth)
+    {
+        currentMonth++;
+        setCurrentMonth(currentMonth);
+        setCurrentDay(1);
+    }
+    else
+    {
+        currentDay++;
+        setCurrentDay(currentDay);
+    }
+
+    return *this;
+}
+
+// Precondition: used with a MyCalendar Object
+// Postcondition: overloaded a postfix increment. Return MyCalendar Object, then increase 1 day.
+MyCalendar MyCalendar::operator++(int)
+{
+    MyCalendar temp(*this);	// Copy constructor
+
+    updateDaysInMonth();
+
+    if (currentMonth == 12 && currentDay == 31)
+    {
+        setCurrentMonth(1);
+        setCurrentDay(1);
+        currentYear++;
+        setCurrentYear(currentYear);
+    }
+    else if (currentDay == daysInMonth)
+    {
+        currentMonth++;
+        setCurrentMonth(currentMonth);
+        setCurrentDay(1);
+    }
+    else
+    {
+        currentDay++;
+        setCurrentDay(currentDay);
+    }
+
+    return temp;
+}
+
+// Precondition: used with a MyCalendar Object
+// Postcondition: overloaded a prefix decrement. Return a MyCalendar object after decreasing 1 day.
+MyCalendar MyCalendar::operator--()
+{
+    updateDaysInMonth();
+
+    if (currentMonth == 1 && currentDay == 1)
+    {
+        setCurrentMonth(12);
+        setCurrentDay(31);
+        currentYear--;
+        setCurrentYear(currentYear);
+    }
+    else if (currentDay == 1)
+    {
+        currentMonth--;
+        setCurrentMonth(currentMonth);
+        currentDay = daysInMonth;
+        setCurrentDay(currentDay);
+    }
+    else
+    {
+        currentDay--;
+        setCurrentDay(currentDay);
+    }
+
+    return *this;
+}
+
+// Precondition: used with a MyCalendar Object
+// Postcondition: overloaded a postfix decrement. Return MyCalendar Object, then decrease 1 day.
+MyCalendar MyCalendar::operator--(int)
+{
+    MyCalendar temp(*this);
+
+    updateDaysInMonth();
+
+    if (currentMonth == 1 && currentDay == 1)
+    {
+        setCurrentMonth(12);
+        setCurrentDay(31);
+        currentYear--;
+        setCurrentYear(currentYear);
+    }
+    else if (currentDay == 1)
+    {
+        currentMonth--;
+        setCurrentMonth(currentMonth);
+        currentDay = daysInMonth;
+        setCurrentDay(currentDay);
+    }
+    else
+    {
+        currentDay--;
+        setCurrentDay(currentDay);
+    }
+
+    return temp;
+}
+
+ostream& operator<<(ostream& out, const MyCalendar& obj)
+{
+    out << "\n\t" << obj.getDayOfWeek() << ", " << obj.getMonthName() << " "
+        << obj.getCurrentDay() << ", " << obj.getCurrentYear();
+
+    out << "\n\t" << obj.getCurrentMonth() << "/" << obj.getCurrentDay() << "/" << obj.getCurrentYear();
+
+    return out;
 }

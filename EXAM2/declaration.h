@@ -15,9 +15,8 @@ char menuOption(MyCalendar*);
 void yearSetUp(MyCalendar* c);
 void monthSetup();
 void daySetUp();
-void calendarSetUp();
+void calendarSetUp(MyCalendar* c);
 void scheduleAndReport();
-void syncSystemDate();
 void saveCalendar();
 void restoreCalendar();
 
