@@ -45,12 +45,13 @@ char menuOption(MyCalendar* test)
 	system("cls");
 
 
+
 	cout << "\n\tCurrent year : " << test->getCurrentYear() << " - " << test->yearToWords() << " (" << (test->isLeapYear() ? "leap)" : "non-leap)");
 	cout << "\n\t" << string(70, char(196));
 	cout << "\n\tCurrent month: " << test->getCurrentMonth() << " - " << test->getMonthName();;
 	cout << "\n\tAwareness    : ";
 	cout << "\n\t" << string(70, char(196));
-	cout << "\n\tCurrent day  : " << test->getCurrentDay() << " - " << test->getDayOfWeek();
+	cout << "\n\tCurrent day  : " << test->getCurrentDay() << test->updateDaySuffix() << " - " << test->getDayOfWeek();
 
 
 	cout << "\n\t" << string(70, char(196));
@@ -126,12 +127,48 @@ void calendarSetUp(MyCalendar* c)
 		switch (inputInteger("\n\tOption: ", -3, 3))
 		{
 		case 0: return; break;
-		case 1: cout << ++(*c); break;
-		case 2: cout << (*c)++; break;
-		case 3: break;
-		case -1: cout << --(*c); break;
-		case -2: cout << (*c)--; break;
-		case -3: break;
+		case 1:
+		{
+			cout << "\n\tpre - increment:(++)\n";
+			cout << ++(*c);
+			cout << "\n";
+		}
+		break;
+		case 2: 
+		{
+			cout << "\n\tpost - increment:(++)\n";
+			cout << (*c)++;
+			cout << "\n";
+		}
+		break;
+		case 3: 
+		{
+			int n = inputInteger("\n\tEnter an integer (n): ", true);
+			c->jumpForward(n);
+			cout << "\n\tjump forward(" << n << ")...\n";
+		}
+		break;
+		case -1:
+		{
+			cout << "\n\tpre - decrement:(++)\n";
+			cout << --(*c);
+			cout << "\n";
+		}
+		break;
+		case -2: 
+		{
+			cout << "\n\tpost - increment:(++)\n";
+			cout << (*c)--;
+			cout << "\n";
+		}
+		break;
+		case -3: 
+		{
+			int n = inputInteger("\n\tEnter an integer (n): ", true);
+			c->jumpBackward(n);
+			cout << "\n\tjump backward(" << n << ")...\n";
+		}
+		break;
 		default: cout << "\n\tERROR - Invalid option. Please re-enter."; break;
 		}
 		cout << "\n";
