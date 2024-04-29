@@ -128,16 +128,17 @@ void daySetUp(MyCalendar* c)
 	do
 	{
 		system("cls");
-		cout << "\n\n\tCurrent year: " << c->getCurrentYear() << " - " << c->yearToWords();
+		cout << "\n\n\tCurrent Day: " << c->getCurrentDay() << "(prefix)";
+		cout << "\n\n\tSet Current Day Menu";
 		cout << "\n\t" << string(90, char(205));
-		cout << "\n\t1. Set Current Year";
+		cout << "\n\t1. Set Current Day";
 		cout << "\n\t" << string(65, char(196));
 		cout << "\n\t0. Exit";
 		cout << "\n\t" << string(65, char(205)) << "\n";
 		switch (inputInteger("\n\tOption: ", 0, 1))
 		{
 		case 0: return; break;
-		case 1:c->setCurrentYear(inputInteger("\n\tSet enter the year (1..9999): ", 1, 9999));  break;
+		case 1:c->setCurrentDay(inputInteger("\n\tSet enter the Day (1..." + to_string(int(c->getDaysInMonth())) + "): ", 1, c->getDaysInMonth()));  break;
 		default: cout << "\n\tERROR - Invalid option. Please re-enter."; break;
 		}
 		cout << "\n";
