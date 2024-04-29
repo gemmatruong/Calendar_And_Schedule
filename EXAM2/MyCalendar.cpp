@@ -78,6 +78,13 @@ unsigned short MyCalendar::getCurrentDay() const
     return currentDay;
 }
 
+// Precondition: Month (m) and Day(d)
+// Postcondition: return an array of integers holding month, day, year of the system date
+MyScheduleDate MyCalendar::getSDay(int m, int d)
+{
+    return scheduleDays[m][d];
+}
+
 unsigned short MyCalendar::getDaysInMonth() const
 {
     return daysInMonth;

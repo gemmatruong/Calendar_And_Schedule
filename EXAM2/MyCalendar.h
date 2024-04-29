@@ -24,12 +24,14 @@ public:
 	void setCurrentDay(int m);
 	unsigned short getCurrentDay() const;
 
+	MyScheduleDate getSDay(int m, int d);
 	unsigned short getDaysInMonth() const;
 
 	string yearToWords() const;
-
 	string getMonthName() const;
 	string getDayOfWeek() const;
+	string updateDaySuffix() const;
+	
 	int* getSystemDate() const;
 	int updateDaysInMonth();
 
@@ -42,12 +44,11 @@ public:
 	void jumpForward(int);			// jump forward a number of days
 	void jumpBackward(int);			// jump forward a number of days
 
-	string updateDaySuffix() const;
 
+	void updateToSystemDate();
 
 	friend ostream& operator<<(ostream& out, const MyCalendar& obj);
 
-	void updateToSystemDate();
 
 };
 

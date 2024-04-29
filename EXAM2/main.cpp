@@ -1,4 +1,4 @@
-// Exam 2
+﻿// Exam 2
 //main folder, the main menu of the program will be managed thru this file
 
 //contributors: Armando Orozco, Thi Troung
@@ -9,6 +9,54 @@
 #include "declaration.h"
 using namespace std;
 
+int dayOfWeekTest(MyCalendar* c, int dayTest)
+{
+	int month = c->getCurrentMonth();
+	int year = c->getCurrentYear();
+	int day = dayTest;
+
+	if (month == 1) {
+		month = 13;
+		year--;
+	}
+	if (month == 2) {
+		month = 14;
+		year--;
+	}
+	int q = day;
+	int m = month;
+	int k = year % 100;
+	int j = year / 100;
+	int h
+		= q + 13 * (m + 1) / 5 + k + k / 4 +
+		j / 4 + 5 * j;
+	h = h % 7;
+
+	h -= 1;
+
+	if (h == -1)//check getDayOfTheWeek in myCalendar class to see why is this
+		return 6;
+	return h;
+}
+void monthArray(MyCalendar* c, int(&validDay)[7][5]);
+
+void monthArray(MyCalendar* c, int(&validDay)[7][5])
+{
+	int day = 1;
+	for (int i = 0; i < 5; i++)
+	{
+		for (int j = 0; j < 7; j++)
+		{
+			if (j == dayOfWeekTest(c, day) && day <= c->getDaysInMonth())
+			{
+				validDay[j][i] = day;
+				day++;
+			}
+			else
+				validDay[j][i] = -1;
+		}
+	}
+}
 
 int main()
 {
@@ -39,19 +87,30 @@ int main()
 
 }
 
-
 char menuOption(MyCalendar* test)
 {
+
 	system("cls");
-
-
-
 	cout << "\n\tCurrent year : " << test->getCurrentYear() << " - " << test->yearToWords() << " (" << (test->isLeapYear() ? "leap)" : "non-leap)");
 	cout << "\n\t" << string(70, char(196));
 	cout << "\n\tCurrent month: " << test->getCurrentMonth() << " - " << test->getMonthName();;
 	cout << "\n\tAwareness    : ";
 	cout << "\n\t" << string(70, char(196));
 	cout << "\n\tCurrent day  : " << test->getCurrentDay() << test->updateDaySuffix() << " - " << test->getDayOfWeek();
+
+	cout << "\n\n\t\t  Sunday   |  Monday   |  Tuesday  | Wednesday | Thursday  |   Friday  |  Saturday \n";
+
+	int validDays[7][5] = {};
+	monthArray(test, validDays);
+
+	for (int i = 0; i < 5; i++)
+	{
+		for (int j = 0; j < 7; j++)
+		{
+			cout << "\t\t" << validDays[j][i];
+		}
+		cout << "\n";
+	}
 
 
 	cout << "\n\t" << string(70, char(196));
@@ -128,7 +187,7 @@ void daySetUp(MyCalendar* c)
 	do
 	{
 		system("cls");
-		cout << "\n\n\tCurrent Day: " << c->getCurrentDay() << "(prefix)";
+		cout << "\n\n\tCurrent Day: " << c->getCurrentDay() << c->updateDaySuffix();
 		cout << "\n\n\tSet Current Day Menu";
 		cout << "\n\t" << string(90, char(205));
 		cout << "\n\t1. Set Current Day";
@@ -226,6 +285,7 @@ void saveCalendar()
 {
 
 }
+
 void restoreCalendar()
 {
 
