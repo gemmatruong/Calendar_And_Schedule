@@ -37,9 +37,15 @@ public:
 	MyCalendar operator++(int);				// postfix(++)
 	MyCalendar operator--();				// prefix(--)
 	MyCalendar operator--(int);				// postfix(--)
+	void jumpForward(int);			// jump forward a number of days
+	void jumpBackward(int);			// jump forward a number of days
+
+	string updateDaySuffix() const;
+
 
 	friend ostream& operator<<(ostream& out, const MyCalendar& obj);
 
 	void updateToSystemDate();
+
 };
 
