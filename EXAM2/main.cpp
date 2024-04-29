@@ -22,8 +22,8 @@ int main()
 		{
 		case 'X': exit(1); break;
 		case 'A': yearSetUp(calendar); break;
-		case 'B': monthSetup(); break;
-		case 'C': daySetUp(); break;
+		case 'B': monthSetup(calendar); break;
+		case 'C': daySetUp(calendar); break;
 		case 'D': calendarSetUp(calendar); break;
 		case 'E': scheduleAndReport(); break;
 		case 'F': calendar->updateToSystemDate(); break;
@@ -81,6 +81,7 @@ void yearSetUp(MyCalendar* c)
 	{
 		system("cls");
 		cout << "\n\n\tCurrent year: " << c->getCurrentYear()<< " - " << c->yearToWords();
+		cout << "\n\n\tSet Current year Menu ";
 		cout << "\n\t" << string(90, char(205));
 		cout << "\n\t1. Set Current Year";
 		cout << "\n\t" << string(65, char(196));
@@ -98,14 +99,53 @@ void yearSetUp(MyCalendar* c)
 
 }
 
-void monthSetup()
+void monthSetup(MyCalendar* c)
 {
+	do
+	{
+		system("cls");
+		cout << "\n\n\tCurrent Month: " << c->getCurrentMonth() << " " + c->getMonthName();
+		cout << "\n\n\tCalendar - Current Month Menu ";
+		cout << "\n\t" << string(90, char(205));
+		cout << "\n\t1. Set Current Month";
+		cout << "\n\t" << string(65, char(196));
+		cout << "\n\t0. Exit";
+		cout << "\n\t" << string(65, char(205)) << "\n";
+		switch (inputInteger("\n\tOption: ", 0, 1))
+		{
+		case 0: return; break;
+		case 1:c->setCurrentMonth(inputInteger("\n\tSet enter the Month (1..12): ", 1, 12));  break;
+		default: cout << "\n\tERROR - Invalid option. Please re-enter."; break;
+		}
+		cout << "\n";
+		system("pause");
+	} while (true);
+
 }
 
-void daySetUp()
+void daySetUp(MyCalendar* c)
 {
+	do
+	{
+		system("cls");
+		cout << "\n\n\tCurrent year: " << c->getCurrentYear() << " - " << c->yearToWords();
+		cout << "\n\t" << string(90, char(205));
+		cout << "\n\t1. Set Current Year";
+		cout << "\n\t" << string(65, char(196));
+		cout << "\n\t0. Exit";
+		cout << "\n\t" << string(65, char(205)) << "\n";
+		switch (inputInteger("\n\tOption: ", 0, 1))
+		{
+		case 0: return; break;
+		case 1:c->setCurrentYear(inputInteger("\n\tSet enter the year (1..9999): ", 1, 9999));  break;
+		default: cout << "\n\tERROR - Invalid option. Please re-enter."; break;
+		}
+		cout << "\n";
+		system("pause");
+	} while (true);
 
 }
+
 void calendarSetUp(MyCalendar* c)
 {
 	do
@@ -175,6 +215,7 @@ void calendarSetUp(MyCalendar* c)
 		system("pause");
 	} while (true);
 }
+
 void scheduleAndReport()
 {
 

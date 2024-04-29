@@ -13,8 +13,8 @@
 char menuOption(MyCalendar*);
 
 void yearSetUp(MyCalendar* c);
-void monthSetup();
-void daySetUp();
+void monthSetup(MyCalendar* c);
+void daySetUp(MyCalendar* c);
 void calendarSetUp(MyCalendar* c);
 void scheduleAndReport();
 void saveCalendar();
