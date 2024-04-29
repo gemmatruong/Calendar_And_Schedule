@@ -24,6 +24,8 @@ public:
 	void setCurrentDay(int m);
 	unsigned short getCurrentDay() const;
 
+	unsigned short getDaysInMonth() const;
+
 	string yearToWords() const;
 
 	string getMonthName() const;

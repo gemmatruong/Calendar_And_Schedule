@@ -10,7 +10,7 @@ MyCalendar::MyCalendar()
 	currentDay = date[1];
     currentYear = date[2];
 	leapYear = isLeapYear();
-
+    updateDaysInMonth();
 	//for (int m = 0; m < 12; m++)
 	//	for (int d = 0; d < 31; d++)
 	//		scheduleDays[m][d].setValue(d + 1);
@@ -76,6 +76,11 @@ void MyCalendar::setCurrentDay(int d)
 unsigned short MyCalendar::getCurrentDay() const
 {
     return currentDay;
+}
+
+unsigned short MyCalendar::getDaysInMonth() const
+{
+    return daysInMonth;
 }
 
 void MyCalendar::updateToSystemDate()
@@ -196,6 +201,10 @@ int MyCalendar::updateDaysInMonth()
     else {
         daysInMonth = 31; // Months with 31 days
     }
+
+    if (currentDay > daysInMonth)
+        currentDay = daysInMonth;
+
     return daysInMonth;
 }
 
