@@ -16,7 +16,6 @@ void yearSetUp(MyCalendar* c);
 void monthSetup(MyCalendar* c);
 void daySetUp(MyCalendar* c);
 void calendarSetUp(MyCalendar* c);
-void scheduleAndReport();
+void scheduleAndReport(MyCalendar* c);
 void saveCalendar();
 void restoreCalendar();
-
