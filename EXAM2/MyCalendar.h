@@ -44,10 +44,15 @@ public:
 
 	string updateDaySuffix() const;
 
+	void scheduleDate(int day, const std::string& description);
+	void unscheduleDate(int day);
+	void displayYearSchedules() const;
+	void displayMonthSchedules() const;
+	void displayDaySchedule() const;
+	MyScheduleDate& getScheduleDate(int month, int day); // New function to access specific schedule dates
 
 	friend ostream& operator<<(ostream& out, const MyCalendar& obj);
 
 	void updateToSystemDate();
 
 };
-
