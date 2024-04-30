@@ -84,7 +84,7 @@ int main() {
 		case 'B': monthSetup(calendar); break;
 		case 'C': daySetUp(calendar); break;
 		case 'D': calendarSetUp(calendar); break;
-		case 'E': scheduleAndReport(); break;
+		case 'E': scheduleAndReport(calendar); break;
 		case 'F': calendar->updateToSystemDate(); break;
 		case 'G': saveCalendar(); break;
 		case 'H': restoreCalendar(); break;
@@ -98,59 +98,61 @@ int main() {
 }
 
 char menuOption(MyCalendar* test) {
-	system("cls");
-	cout << "\n\tCurrent year : ";
-	cout << "\033[34;1m" << test->getCurrentYear() << " - " << test->yearToWords() << (test->isLeapYear() ? " (leap)" : " (non-leap)") << "\033[0m";
-	cout << "\n\t" << string(70, char(196));
-	cout << "\n\tCurrent month: ";
-	cout << "\033[34;1m" << test->getCurrentMonth() << " - " << test->getMonthName() << "\033[0m";
-	cout << "\n\tAwareness    : ";
-	cout << "\033[34;1m" << getAwarenessTheme(test->getCurrentMonth()) << "\033[0m";
-	cout << "\n\t" << string(70, char(196));
-	cout << "\n\tCurrent day  : ";
-	cout << "\033[34;1m" << test->getCurrentDay() << " - " << test->getDayOfWeek() << "\033[0m";
+    system("cls");
+    cout << "\n\tCurrent year : ";
+    cout << "\033[34;1m" << test->getCurrentYear() << " - " << test->yearToWords() << (test->isLeapYear() ? " (leap)" : " (non-leap)") << "\033[0m";
+    cout << "\n\t" << string(70, char(196));
+    cout << "\n\tCurrent month: ";
+    cout << "\033[34;1m" << test->getCurrentMonth() << " - " << test->getMonthName() << "\033[0m";
+    cout << "\n\tAwareness    : ";
+    cout << "\033[34;1m" << getAwarenessTheme(test->getCurrentMonth()) << "\033[0m";
+    cout << "\n\t" << string(70, char(196));
+    cout << "\n\tCurrent day  : ";
+    cout << "\033[34;1m" << test->getCurrentDay() << test->updateDaySuffix() << " - " << test->getDayOfWeek() << "\033[0m";
+	cout << "\n\t             : unschedule";
 
-	cout << "\n\n\t\t  Sunday   |  Monday   |  Tuesday  | Wednesday | Thursday  |   Friday  |  Saturday \n";
+    cout << "\n\n\t\t  Sunday   |  Monday   |  Tuesday  | Wednesday | Thursday  |   Friday  |  Saturday \n";
 
-	int validDays[7][5] = {};
-	monthArray(test, validDays);
+    int validDays[7][5] = {};
+    monthArray(test, validDays);
 
-	for (int i = 0; i < 5; i++) {
-		for (int j = 0; j < 7; j++) {
-			cout << "\t\t";
-			if (validDays[j][i] == -1) {
-				cout << "░░";  // Display light shade blocks for invalid days
-			}
-			else if (validDays[j][i] == test->getCurrentDay()) {
-				cout << "\033[44m" << setw(2) << validDays[j][i] << "\033[0m";  // Highlight current day with blue background
-			}
-			else {
-				cout << setw(2) << validDays[j][i];
-			}
-		}
-		cout << "\n";
-	}
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 7; j++) {
+            cout << "\t\t";
+            if (validDays[j][i] == -1) {
+                cout << "░░";  // Display ?? for invalid days
+            }
+            else if (validDays[j][i] == test->getCurrentDay()) {
+                cout << "\033[44m" << setw(2) << validDays[j][i] << "\033[0m";  // Highlight current day with blue background
+            }
+            else {
+                cout << setw(2) << validDays[j][i];
+            }
+            if (j < 6) cout << " | ";
+        }
+        cout << "\n";
+    }
 
-	cout << "\n\t" << string(70, char(196));
-	cout << "\n\n\tCMPR121: Exam#2 - MyCalendar - OOP implementations Armando O., Thi T., Christopher T. (add your names)";
-	cout << "\n\t" << string(65, char(205));
-	cout << "\n\tA. Setting Current Year";
-	cout << "\n\tB. Setting Current Month";
-	cout << "\n\tC. Setting Current Day";
-	cout << "\n\tD. Setting Current Calendar";
-	cout << "\n\tE. Schedule and Report Dates";
-	cout << "\n\t" << string(65, char(196));
-	cout << "\n\tF. Sync to system's date";
-	cout << "\n\tG. Save calendar to file";
-	cout << "\n\tH. Restore calendar from file";
-	cout << "\n\t" << string(65, char(196));
-	cout << "\n\tX. Exit";
-	cout << "\n\t" << string(65, char(205)) << "\n";
+    cout << "\n\t" << string(70, char(196));
+    cout << "\n\n\tCMPR121: Exam#2 - MyCalendar - OOP implementations Armando O., Thi T., Christopher T. (add your names)";
+    cout << "\n\t" << string(65, char(205));
+    cout << "\n\tA. Setting Current Year";
+    cout << "\n\tB. Setting Current Month";
+    cout << "\n\tC. Setting Current Day";
+    cout << "\n\tD. Setting Current Calendar";
+    cout << "\n\tE. Schedule and Report Dates";
+    cout << "\n\t" << string(65, char(196));
+    cout << "\n\tF. Sync to system's date";
+    cout << "\n\tG. Save calendar to file";
+    cout << "\n\tH. Restore calendar from file";
+    cout << "\n\t" << string(65, char(196));
+    cout << "\n\tX. Exit";
+    cout << "\n\t" << string(65, char(205)) << "\n";
 
-
-
-	return toupper(inputChar("\n\tOption: ", "ABCDEFGH"));
+    return toupper(inputChar("\n\tOption: ", "ABCDEFGH"));
 }
+
+
 void yearSetUp(MyCalendar* c)
 {
 
@@ -294,9 +296,104 @@ void calendarSetUp(MyCalendar* c)
 	} while (true);
 }
 
-void scheduleAndReport()
+void scheduleAndReport(MyCalendar* calendar)
 {
+	system("cls");
+	int option;
+	do {
+		cout << "\n\tmonth       : " << calendar->getMonthName();
+		cout << "\n\tday         : " << calendar->getCurrentDay();
+		cout << "\n\ttype        : U";  // Assuming 'U' stands for unscheduled
+		cout << "\n\tdescription : unschedule";  // Placeholder for description
 
+		cout << "\n\n\tScheduling Date";
+		cout << "\n\t" << string(65, char(205));
+		cout << "\n\t1. Schedule a date";
+		cout << "\n\t2. Unschedule a date";
+		cout << "\n\t" << string(65, char(196));
+		cout << "\n\t3. Display year schedules";
+		cout << "\n\t4. Display month schedules";
+		cout << "\n\t5. Display day schedule";
+		cout << "\n\t0. Return";
+		cout << "\n\t" << string(65, char(205));
+		cout << "\n\tOption: ";
+		cin >> option;
+
+		switch (option) {
+		case 1: {
+			if (!calendar) {
+				cout << "Calendar object is null." << endl;
+				return;
+			}
+
+			int month, day;
+			string description;
+			char type;
+
+			cout << "\n\tSpecify a month (1...12): ";
+			cin >> month;
+			cout << "\n\tSpecify a day (1..30): ";
+			cin >> day;
+			cin.ignore();  // Clear buffer after reading a number
+
+			cout << "\n\tEnter a description: ";
+			getline(cin, description);
+
+			cout << "\n\tSpecify a type (R-return, A-Awareness, H-holiday, P-personal): ";
+			cin >> type;
+			type = toupper(type);
+
+			if (type != 'R' && type != 'A' && type != 'H' && type != 'P') {
+				cout << "Invalid type. Please enter one of R, A, H, or P." << endl;
+				return;
+			}
+
+			if (month >= 1 && month <= 12 && day >= 1 && day <= 30) {
+				MyScheduleDate& date = calendar->getScheduleDate(month, day);
+				date.setDescription(description);
+				date.setType(type);
+
+				cout << "\n\tSuccess: Date has been successfully scheduled." << endl;
+			}
+			else {
+				cout << "\n\tDate has NOT been scheduled or rescheduled." << endl;
+			}
+			system("pause");
+			break;
+		}
+		case 2: {
+			int month, day;
+			cout << "\n\tSpecify a month (1...12): ";
+			cin >> month;
+			cout << "\n\tSpecify a day (1..30): ";
+			cin >> day;
+			if (month >= 1 && month <= 12 && day >= 1 && day <= 30) { // Simplified validation
+				MyScheduleDate& date = calendar->getScheduleDate(month, day);
+				date.clearDate();  // Clear the scheduled date
+				cout << "\n\tSUCCESS: Date has successfully been unscheduled.\n";
+			}
+			else {
+				cout << "\n\tDate has NOT been scheduled or rescheduled." << endl;
+			}
+			system("pause");
+			break;
+		}
+		case 3:
+			calendar->displayYearSchedules();
+			break;
+		case 4:
+			calendar->displayMonthSchedules();
+			break;
+		case 5:
+			calendar->displayDaySchedule();
+			break;
+		case 0:
+			return;
+		default:
+			cout << "Invalid option. Please try again.\n";
+			break;
+		}
+	} while (option != 0);
 }
 
 void saveCalendar()
