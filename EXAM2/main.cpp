@@ -56,18 +56,18 @@ void monthArray(MyCalendar* c, int(&validDay)[7][5]) {
 }
 string getAwarenessTheme(int month) {
 	static const vector<string> themes = {
-		"Glaucoma Awareness Month",  // January
-		"American Heart Month",      // February
-		"Colorectal Cancer Awareness Month", // March
-		"Autism Awareness Month",    // April
-		"Mental Health Awareness Month",     // May
-		"Men's Health Month",        // June
-		"UV Safety Awareness Month", // July
-		"Immunization Awareness Month",      // August
-		"Childhood Cancer Awareness Month",  // September
-		"Breast Cancer Awareness Month",     // October
-		"Diabetes Awareness Month",  // November
-		"HIV/AIDS Awareness Month"   // December
+		"Thyroid Month",  // January
+		"Heart Failure Month",      // February
+		"Multiple Sclerosis Month", // March
+		"Oral Cancer Month",    // April
+		"Mental Health Month",     // May
+		"Migrane and Headache Month",        // June
+		"Juvenile Arthrisis Month", // July
+		"Immunization Month",      // August
+		"Ovarian Cancer Month",  // September
+		"Breast Cancer Month",     // October
+		"Lung Cancer Month",  // November
+		"HIV Aids Month"   // December
 	};
 	if (month < 1 || month > 12) {
 		return "Unknown Awareness Month"; // Safety check for invalid month
