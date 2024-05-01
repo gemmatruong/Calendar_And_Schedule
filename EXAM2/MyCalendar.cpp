@@ -6,14 +6,14 @@ MyCalendar::MyCalendar()
 
     int* date = getSystemDate();
 
-	currentMonth = date[0];
-	currentDay = date[1];
+    currentMonth = date[0];
+    currentDay = date[1];
     currentYear = date[2];
-	leapYear = isLeapYear();
+    leapYear = isLeapYear();
     updateDaysInMonth();
-	//for (int m = 0; m < 12; m++)
-	//	for (int d = 0; d < 31; d++)
-	//		scheduleDays[m][d].setValue(d + 1);
+    //for (int m = 0; m < 12; m++)
+    //	for (int d = 0; d < 31; d++)
+    //		scheduleDays[m][d].setValue(d + 1);
 }
 
 void MyCalendar::setCurrentYear(int y)
@@ -31,14 +31,14 @@ unsigned short MyCalendar::getCurrentYear() const
 
 void MyCalendar::setCurrentMonth(int m)
 {
-	 if (m > 12)
+    if (m > 12)
     {
-         setCurrentYear(currentYear + 1);
+        setCurrentYear(currentYear + 1);
         currentMonth = 1;
     }
     else if (m < 1)
     {
-         setCurrentYear(currentYear - 1);
+        setCurrentYear(currentYear - 1);
         currentMonth = 12;
     }
     else
@@ -50,17 +50,18 @@ void MyCalendar::setCurrentMonth(int m)
 
 unsigned short MyCalendar::getCurrentMonth() const
 {
-	return currentMonth;
+    return currentMonth;
 }
 
 
 void MyCalendar::setCurrentDay(int d)
 {
-     if (d > daysInMonth)
+    if (d > daysInMonth)
     {
         currentDay = 1;
         setCurrentMonth(currentMonth + 1);
-    }else if (d < 1)
+    }
+    else if (d < 1)
     {
         setCurrentMonth(currentMonth - 1);
         currentDay = daysInMonth;
@@ -69,7 +70,7 @@ void MyCalendar::setCurrentDay(int d)
     {
         currentDay = d;
     }
-    
+
     return;
 }
 
@@ -95,13 +96,13 @@ void MyCalendar::updateToSystemDate()
 
 string  MyCalendar::getMonthName() const
 {
-	const string months[13] = { "unknown", "January", "February", "March" , "April", "May", "June", "July", "August", "September", "October" ,"November", "December" };
+    const string months[13] = { "unknown", "January", "February", "March" , "April", "May", "June", "July", "August", "September", "October" ,"November", "December" };
 
-	if (currentMonth >= 1 && currentMonth <= 12)
-		return months[currentMonth];
-	else
-		return months[0];
-	
+    if (currentMonth >= 1 && currentMonth <= 12)
+        return months[currentMonth];
+    else
+        return months[0];
+
 }
 
 string MyCalendar::getDayOfWeek() const
@@ -188,7 +189,7 @@ int MyCalendar::updateDaysInMonth()
     int month = currentMonth;
     int year = currentYear;
     if (month == 4 || month == 6 || month == 9 || month == 11) {
-        daysInMonth= 30; // Months with 30 days
+        daysInMonth = 30; // Months with 30 days
     }
     else if (month == 2) {
         if (leapYear) {
@@ -432,6 +433,62 @@ string MyCalendar::updateDaySuffix() const
     return daySuffix;
 
 }
+
+void MyCalendar::scheduleDate(int day, const std::string& description) {
+    if (day > 0 && day <= getDaysInMonth()) {
+        scheduleDays[currentMonth - 1][day - 1].setDescription(description);
+        std::cout << "Date scheduled: " << description << " on day " << day << std::endl;
+    }
+    else {
+        std::cout << "Invalid day for scheduling" << std::endl;
+    }
+}
+
+void MyCalendar::unscheduleDate(int day) {
+    if (day > 0 && day <= getDaysInMonth()) {
+        scheduleDays[currentMonth - 1][day - 1].clearDescription();
+        std::cout << "Date unscheduled for day " << day << std::endl;
+    }
+    else {
+        std::cout << "Invalid day for unscheduling" << std::endl;
+    }
+}
+
+void MyCalendar::displayYearSchedules() const {
+    for (int month = 0; month < 12; month++) {
+        for (int day = 0; day < daysInMonth; day++) {
+            if (!scheduleDays[month][day].getDescription().empty()) {
+                std::cout << "Month " << month + 1 << " Day " << day + 1 << ": " << scheduleDays[month][day].getDescription() << std::endl;
+            }
+        }
+    }
+}
+
+void MyCalendar::displayMonthSchedules() const {
+    for (int day = 0; day < daysInMonth; day++) {
+        if (!scheduleDays[currentMonth - 1][day].getDescription().empty()) {
+            std::cout << "Day " << day + 1 << ": " << scheduleDays[currentMonth - 1][day].getDescription() << std::endl;
+        }
+    }
+}
+
+void MyCalendar::displayDaySchedule() const {
+    std::cout << "Schedule for Day " << currentDay << ": " << scheduleDays[currentMonth - 1][currentDay - 1].getDescription() << std::endl;
+}
+
+MyScheduleDate& MyCalendar::getScheduleDate(int month, int day)
+{
+    // Boundary checks to prevent out-of-range access
+    if (month >= 1 && month <= 12 && day >= 1 && day <= daysInMonth) {
+        return scheduleDays[month - 1][day - 1];
+    }
+    else {
+        static MyScheduleDate dummy; // Return a dummy object for invalid access
+        std::cerr << "Invalid month or day requested. Returning dummy object." << std::endl;
+        return dummy;
+    }
+ }
+
 
 
 ostream& operator<<(ostream& out, const MyCalendar& obj)
