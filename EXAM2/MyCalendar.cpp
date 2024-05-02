@@ -483,17 +483,18 @@ void MyCalendar::displayDaySchedule() const {
     std::cout << "Schedule for Day " << currentDay << ": " << scheduleDays[currentMonth - 1][currentDay - 1].getDescription() << std::endl;
 }
 
-MyScheduleDate& MyCalendar::getScheduleDate(int month, int day)
+MyScheduleDate& MyCalendar::getScheduleDate()
 {
+    return scheduleDays[currentDay][currentMonth];
     // Boundary checks to prevent out-of-range access
-    if (month >= 1 && month <= 12 && day >= 1 && day <= daysInMonth) {
-        return scheduleDays[month - 1][day - 1];
-    }
-    else {
-        static MyScheduleDate dummy; // Return a dummy object for invalid access
-        std::cerr << "Invalid month or day requested. Returning dummy object." << std::endl;
-        return dummy;
-    }
+    //if (currentMonth >= 1 && currentMonth <= 12 && day >= 1 && day <= daysInMonth) {
+    //    return scheduleDays[month - 1][day - 1];
+    //}
+    //else {
+    //    static MyScheduleDate dummy; // Return a dummy object for invalid access
+    //    std::cerr << "Invalid month or day requested. Returning dummy object." << std::endl;
+    //    return dummy;
+    //}
  }
 
 
