@@ -1,19 +1,12 @@
+
 // Exam 2
 //main folder, the main menu of the program will be managed thru this file
 
 //contributors: Armando Orozco, Thi Troung
 //test
 
-
-
-#include<iostream>
-#include <iomanip>
-#include <ctime>
 #include "declaration.h"
-#include "MyCalendar.h"
-#include "MyScheduleDate.h"
-#include "MyUnit.h"
-#include <vector>
+
 
 using namespace std;
 
@@ -54,6 +47,7 @@ void monthArray(MyCalendar* c, int(&validDay)[7][5]) {
 		}
 	}
 }
+
 string getAwarenessTheme(int month) {
 	static const vector<string> themes = {
 		"Thyroid Month",  // January
@@ -86,8 +80,8 @@ int main() {
 		case 'D': calendarSetUp(calendar); break;
 		case 'E': scheduleAndReport(calendar); break;
 		case 'F': calendar->updateToSystemDate(); break;
-		case 'G': saveCalendar(); break;
-		case 'H': restoreCalendar(); break;
+		case 'G': saveCalendar(calendar); break;
+		case 'H': restoreCalendar(calendar); break;
 		default: cout << "\n\tERROR - Invalid option. Please re-enter."; break;
 		}
 		cout << "\n";
@@ -396,12 +390,107 @@ void scheduleAndReport(MyCalendar* calendar)
 	} while (option != 0);
 }
 
-void saveCalendar()
+void saveCalendar(MyCalendar* calendar)
 {
+	if (calendar == nullptr) {
+		cout << "Error: Calendar object is null." << endl;
+		return;
+	}
 
+	string filename = inputString("Enter filename to save the calendar (default: calendar_data.txt): ", true);
+	if (filename.empty()) {
+		filename = "calendar_data.txt";  // Default filename if nothing is entered
+	}
+
+	ofstream file(filename);
+	if (!file.is_open()) {
+		cout << "Failed to open file for writing." << endl;
+		return;
+	}
+
+	// Write basic calendar information
+	file << "Year: " << calendar->getCurrentYear() << endl;
+	file << "Month: " << calendar->getCurrentMonth() << endl;
+	file << "Day: " << calendar->getCurrentDay() << endl;
+
+	// Iterate over all months and days to serialize scheduled dates
+	for (int m = 1; m <= 12; ++m) {  // Assuming months are 1-indexed
+		for (int d = 1; d <= calendar->getDaysInMonth(); ++d) {  // Assuming `getDaysInMonth()` returns the correct days count for each month
+			MyScheduleDate& date = calendar->getScheduleDate(m, d);
+			if (!date.getDescription().empty()) {  // Only serialize days with a description
+				file << "Date: " << m << "/" << d << " - "
+					<< "Type: " << date.getType() << " - "
+					<< "Description: " << date.getDescription() << endl;
+			}
+		}
+	}
+
+	file.close();
+	cout << "Calendar has been successfully saved to '" << filename << "'." << endl;
 }
 
-void restoreCalendar()
+void restoreCalendar(MyCalendar* calendar)
 {
+	if (calendar == nullptr) {
+		cout << "Error: Calendar object is null." << endl;
+		return;
+	}
+
+	string filename = inputString("Enter filename to load the calendar from (default: calendar_data.txt): ", true);
+	if (filename.empty()) {
+		filename = "calendar_data.txt";  // Default filename if nothing is entered
+	}
+
+	ifstream file(filename);
+	if (!file.is_open()) {
+		cout << "Failed to open file for reading." << endl;
+		return;
+	}
+	string line;
+	while (getline(file, line)) {
+		size_t pos = line.find(':');
+		if (pos == string::npos) continue; // Skip if no colon found
+
+		string key = trim(line.substr(0, pos));
+		string value = trim(line.substr(pos + 1));
+
+		if (key == "Year") {
+			calendar->setCurrentYear(stoi(value));
+		}
+		else if (key == "Month") {
+			calendar->setCurrentMonth(stoi(value));
+		}
+		else if (key == "Day") {
+			calendar->setCurrentDay(stoi(value));
+		}
+		else if (key == "Date") {
+			size_t dashPos = value.find('-');
+			if (dashPos == string::npos) continue; // Skip if no dash found
+
+			string datePart = trim(value.substr(0, dashPos));
+			size_t slashPos = datePart.find('/');
+			if (slashPos == string::npos) continue; // Skip if no slash found
+
+			int month = stoi(trim(datePart.substr(0, slashPos)));
+			int day = stoi(trim(datePart.substr(slashPos + 1)));
+
+			size_t typePos = value.find("Type: ", dashPos + 1);
+			if (typePos == string::npos) continue; // Skip if no "Type: " found
+
+			size_t descPos = value.find(" - ", typePos + 6);
+			if (descPos == string::npos) continue; // Skip if no " - " found
+
+			char type = trim(value.substr(typePos + 6, descPos - (typePos + 6)))[0];
+			string description = trim(value.substr(descPos + 3));
+
+			// Set the schedule
+			MyScheduleDate& scheduleDate = calendar->getScheduleDate(month, day);
+			scheduleDate.setDescription(description);
+			scheduleDate.setType(type);
+		}
+	}
+
+	file.close();
+	cout << "Calendar has been successfully restored from '" << filename << "'." << endl;
 
 }
