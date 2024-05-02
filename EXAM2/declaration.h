@@ -2,10 +2,12 @@
 
 // in this header file you are going to set the prototypes of the functions you are using, 
 // if you see a function that already does what you need, please use it, the main structure for the project is also here
-
+#include <vector>
+#include <fstream>
+#include <sstream>
+#include <ctime>
 #include "input.h"
 #include "MyUnit.h"
-#include <ctime>
 #include "MyScheduleDate.h"
 #include "MyCalendar.h"
 
@@ -19,3 +21,4 @@ void calendarSetUp(MyCalendar* c);
 void scheduleAndReport(MyCalendar* c);
 void saveCalendar(MyCalendar* c);
 void restoreCalendar(MyCalendar* c);
+

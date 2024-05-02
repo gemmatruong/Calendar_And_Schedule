@@ -1,14 +1,12 @@
-#include<iostream>
-#include <iomanip>
-#include <ctime>
+
+// Exam 2
+//main folder, the main menu of the program will be managed thru this file
+
+//contributors: Armando Orozco, Thi Troung
+//test
+
 #include "declaration.h"
-#include "MyCalendar.h"
-#include "MyScheduleDate.h"
-#include "input.h"
-#include "MyUnit.h"
-#include <vector>
-#include <fstream>
-#include <sstream>
+
 
 using namespace std;
 
@@ -49,6 +47,7 @@ void monthArray(MyCalendar* c, int(&validDay)[7][5]) {
 		}
 	}
 }
+
 string getAwarenessTheme(int month) {
 	static const vector<string> themes = {
 		"Thyroid Month",  // January
@@ -447,7 +446,6 @@ void restoreCalendar(MyCalendar* calendar)
 		cout << "Failed to open file for reading." << endl;
 		return;
 	}
-
 	string line;
 	while (getline(file, line)) {
 		size_t pos = line.find(':');
@@ -494,4 +492,5 @@ void restoreCalendar(MyCalendar* calendar)
 
 	file.close();
 	cout << "Calendar has been successfully restored from '" << filename << "'." << endl;
+
 }
