@@ -121,7 +121,7 @@ char menuOption(MyCalendar* test) {
         for (int j = 0; j < 7; j++) {
             cout << "\t\t";
             if (validDays[j][i] == -1) {
-                cout << "░░";  // Display ?? for invalid days
+                cout << string(2,char(176));  // Display ?? for invalid days
             }
             else if (validDays[j][i] == test->getCurrentDay()) {
                 cout << "\033[44m" << setw(2) << validDays[j][i] << "\033[0m";  // Highlight current day with blue background
