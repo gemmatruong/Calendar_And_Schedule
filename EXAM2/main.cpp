@@ -102,24 +102,25 @@ char menuOption(MyCalendar* test) {
     system("cls");
     cout << "\n\tCurrent year : ";
     cout << "\033[34;1m" << test->getCurrentYear() << " - " << test->yearToWords() << (test->isLeapYear() ? " (leap)" : " (non-leap)") << "\033[0m";
-    cout << "\n\t" << string(70, char(196));
+    cout << "\n\t" << string(83, char(196));
     cout << "\n\tCurrent month: ";
     cout << "\033[34;1m" << test->getCurrentMonth() << " - " << test->getMonthName() << "\033[0m";
     cout << "\n\tAwareness    : ";
     cout << "\033[34;1m" << getAwarenessTheme(test->getCurrentMonth()) << "\033[0m";
-    cout << "\n\t" << string(70, char(196));
+    cout << "\n\t" << string(83, char(196));
     cout << "\n\tCurrent day  : ";
     cout << "\033[34;1m" << test->getCurrentDay() << test->updateDaySuffix() << " - " << test->getDayOfWeek() << "\033[0m";
 	cout << "\n\t             : unschedule";
 
-    cout << "\n\n\t\t  Sunday   |  Monday   |  Tuesday  | Wednesday | Thursday  |   Friday  |  Saturday \n";
+    cout << "\n\n\t   Sunday   |  Monday  |  Tuesday  | Wednesday | Thursday  |   Friday  |  Saturday \n";
 
     int validDays[7][5] = {};
     monthArray(test, validDays);
 
     for (int i = 0; i < 5; i++) {
+		cout << "  ";
         for (int j = 0; j < 7; j++) {
-            cout << "\t\t";
+            cout << "          ";
             if (validDays[j][i] == -1) {
                 cout << string(2,char(176));  // Display ?? for invalid days
             }
@@ -129,27 +130,27 @@ char menuOption(MyCalendar* test) {
             else {
                 cout << setw(2) << validDays[j][i];
             }
-            if (j < 6) cout << " | ";
+            //if (j < 6) cout << " | ";
         }
         cout << "\n";
     }
 
 
-    cout << "\n\t" << string(70, char(196));
-    cout << "\n\n\tCMPR121: Exam#2 - MyCalendar - OOP implementations Armando O., Thi T., Christopher T. (add your names)";
-    cout << "\n\t" << string(65, char(205));
+    cout << "\n\t" << string(83, char(196));
+    cout << "\n\n\tCMPR121: Exam#2 - MyCalendar - OOP implementations Armando O., Thi T., Christopher T.";
+    cout << "\n\t" << string(83, char(205));
     cout << "\n\tA. Setting Current Year";
     cout << "\n\tB. Setting Current Month";
     cout << "\n\tC. Setting Current Day";
     cout << "\n\tD. Setting Current Calendar";
     cout << "\n\tE. Schedule and Report Dates";
-    cout << "\n\t" << string(65, char(196));
+    cout << "\n\t" << string(83, char(196));
     cout << "\n\tF. Sync to system's date";
     cout << "\n\tG. Save calendar to file";
     cout << "\n\tH. Restore calendar from file";
-    cout << "\n\t" << string(65, char(196));
+    cout << "\n\t" << string(83, char(196));
     cout << "\n\tX. Exit";
-    cout << "\n\t" << string(65, char(205)) << "\n";
+    cout << "\n\t" << string(83, char(205)) << "\n";
 
     return toupper(inputChar("\n\tOption: ", "ABCDEFGH"));
 }
@@ -405,12 +406,12 @@ void saveCalendar(MyCalendar* calendar)
 		return;
 	}
 
-	string filename = inputString("Enter filename to save the calendar (default: calendar_data.txt): ", true);
+	string filename = inputString("Enter filename to save the calendar (default: calendar_data.dat): ", true);
 	if (filename.empty()) {
-		filename = "calendar_data.txt";  // Default filename if nothing is entered
+		filename = "calendar_data.dat";  // Default filename if nothing is entered
 	}
 
-	ofstream file(filename);
+	ofstream file(filename, ios::binary);
 	if (!file.is_open()) {
 		cout << "Failed to open file for writing." << endl;
 		return;
