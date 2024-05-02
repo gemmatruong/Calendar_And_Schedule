@@ -1,8 +1,6 @@
 
 // Exam 2
-
 //main folder, the main menu of the program will be managed thru this file
-
 //contributors: Armando Orozco, Thi Troung
 //test
 
@@ -32,27 +30,11 @@ int dayOfWeekTest(MyCalendar* c, int dayTest)
 	int h = q + 13 * (m + 1) / 5 + k + k / 4 + j / 4 + 5 * j;
 	h = h % 7;
 	h -= 1;
-	if (h == -1)
-		return 6;
-	return h;
-}
-
-	int q = day;
-	int m = month;
-	int k = year % 100;
-	int j = year / 100;
-	int h
-		= q + 13 * (m + 1) / 5 + k + k / 4 +
-		j / 4 + 5 * j;
-	h = h % 7;
-
-	h -= 1;
-
 	if (h == -1)//check getDayOfTheWeek in myCalendar class to see why is this
 		return 6;
 	return h;
+
 }
-void monthArray(MyCalendar* c, int(&validDay)[7][5]);
 
 void monthArray(MyCalendar* c, int(&validDay)[7][5])
 {
@@ -72,20 +54,6 @@ void monthArray(MyCalendar* c, int(&validDay)[7][5])
 	}
 }
 
-void monthArray(MyCalendar* c, int(&validDay)[7][5]) {
-	int day = 1;
-	for (int i = 0; i < 5; i++) {
-		for (int j = 0; j < 7; j++) {
-			if (j == dayOfWeekTest(c, day) && day <= c->getDaysInMonth()) {
-				validDay[j][i] = day;
-				day++;
-			}
-			else {
-				validDay[j][i] = -1;
-			}
-		}
-	}
-}
 
 string getAwarenessTheme(int month) {
 	static const vector<string> themes = {
