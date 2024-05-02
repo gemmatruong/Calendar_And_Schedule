@@ -3,6 +3,7 @@
 MyScheduleDate::MyScheduleDate()
 {
 	type = 'U';
+	description = "none";
 }
 
 void MyScheduleDate::setType(char newType)

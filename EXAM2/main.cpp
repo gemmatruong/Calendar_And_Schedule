@@ -6,7 +6,6 @@
 
 #include "declaration.h"
 
-
 using namespace std;
 
 int dayOfWeekTest(MyCalendar* c, int dayTest)
@@ -38,18 +37,18 @@ int dayOfWeekTest(MyCalendar* c, int dayTest)
 
 void monthArray(MyCalendar* c, int(&validDay)[7][5])
 {
-	int day = 1;
-	for (int i = 0; i < 5; i++)
+	int day = 1;//set the day count to 1, since its the start day of every mont
+	for (int i = 0; i < 5; i++)//iterate trough rows
 	{
-		for (int j = 0; j < 7; j++)
+		for (int j = 0; j < 7; j++)//iterate trough the days of the wee
 		{
-			if (j == dayOfWeekTest(c, day) && day <= c->getDaysInMonth())
+			if (j == dayOfWeekTest(c, day) && day <= c->getDaysInMonth())// if the day is not in the correct day of the week, go to the next one
 			{
-				validDay[j][i] = day;
-				day++;
+				validDay[j][i] = day;//set a flag to know theres a day here
+				day++;//try to the next day
 			}
 			else
-				validDay[j][i] = -1;
+				validDay[j][i] = -1;//set a flag that there's not a day of the month in this day of the week
 		}
 	}
 }
@@ -154,7 +153,6 @@ char menuOption(MyCalendar* test) {
 
     return toupper(inputChar("\n\tOption: ", "ABCDEFGH"));
 }
-
 
 void yearSetUp(MyCalendar* c)
 {
@@ -301,13 +299,14 @@ void calendarSetUp(MyCalendar* c)
 
 void scheduleAndReport(MyCalendar* calendar)
 {
-	system("cls");
+	MyScheduleDate* currentDate = &calendar->getScheduleDate();
 	int option;
 	do {
+		system("cls");
 		cout << "\n\tmonth       : " << calendar->getMonthName();
 		cout << "\n\tday         : " << calendar->getCurrentDay();
-		cout << "\n\ttype        : U";  // Assuming 'U' stands for unscheduled
-		cout << "\n\tdescription : unschedule";  // Placeholder for description
+		cout << "\n\ttype        : "<< currentDate->getType();  // Assuming 'U' stands for unscheduled
+		cout << "\n\tdescription : "<<currentDate->getDescription();  // Placeholder for description
 
 		cout << "\n\n\tScheduling Date";
 		cout << "\n\t" << string(65, char(205));
@@ -329,39 +328,16 @@ void scheduleAndReport(MyCalendar* calendar)
 				return;
 			}
 
-			int month, day;
-			string description;
-			char type;
+			int month = inputInteger("\n\tSpecify a month (1...12): ",1,12);
+			int day = inputInteger("\n\tSpecify a day (1.." + to_string(month) + ")", 1, month);
+			string description = inputString("\n\tEnter a description: ", true);
+			char type = toupper(inputChar("\n\tSpecify a type (R-return, A-Awareness, H-holiday, P-personal): ",static_cast<string>("RAHP")));
 
-			cout << "\n\tSpecify a month (1...12): ";
-			cin >> month;
-			cout << "\n\tSpecify a day (1..30): ";
-			cin >> day;
-			cin.ignore();  // Clear buffer after reading a number
+			
+			MyScheduleDate& date = calendar->getScheduleDate();
+			date.setDescription(description);
+			date.setType(type);
 
-			cout << "\n\tEnter a description: ";
-			getline(cin, description);
-
-			cout << "\n\tSpecify a type (R-return, A-Awareness, H-holiday, P-personal): ";
-			cin >> type;
-			type = toupper(type);
-
-			if (type != 'R' && type != 'A' && type != 'H' && type != 'P') {
-				cout << "Invalid type. Please enter one of R, A, H, or P." << endl;
-				return;
-			}
-
-			if (month >= 1 && month <= 12 && day >= 1 && day <= 30) {
-				MyScheduleDate& date = calendar->getScheduleDate(month, day);
-				date.setDescription(description);
-				date.setType(type);
-
-				cout << "\n\tSuccess: Date has been successfully scheduled." << endl;
-			}
-			else {
-				cout << "\n\tDate has NOT been scheduled or rescheduled." << endl;
-			}
-			system("pause");
 			break;
 		}
 		case 2: {
@@ -371,14 +347,13 @@ void scheduleAndReport(MyCalendar* calendar)
 			cout << "\n\tSpecify a day (1..30): ";
 			cin >> day;
 			if (month >= 1 && month <= 12 && day >= 1 && day <= 30) { // Simplified validation
-				MyScheduleDate& date = calendar->getScheduleDate(month, day);
+				MyScheduleDate& date = calendar->getScheduleDate();
 				date.clearDate();  // Clear the scheduled date
 				cout << "\n\tSUCCESS: Date has successfully been unscheduled.\n";
 			}
 			else {
 				cout << "\n\tDate has NOT been scheduled or rescheduled." << endl;
 			}
-			system("pause");
 			break;
 		}
 		case 3:
@@ -396,10 +371,13 @@ void scheduleAndReport(MyCalendar* calendar)
 			cout << "Invalid option. Please try again.\n";
 			break;
 		}
+		system("pause");
 	} while (option != 0);
 }
 
-void saveCalendar(MyCalendar* calendar)
+void saveCalendar(MyCalendar* calendar) {}
+void restoreCalendar(MyCalendar* calendar) {}
+/*
 {
 	if (calendar == nullptr) {
 		cout << "Error: Calendar object is null." << endl;
@@ -494,9 +472,9 @@ void restoreCalendar(MyCalendar* calendar)
 			string description = trim(value.substr(descPos + 3));
 
 			// Set the schedule
-			MyScheduleDate& scheduleDate = calendar->getScheduleDate(month, day);
-			scheduleDate.setDescription(description);
-			scheduleDate.setType(type);
+			//MyScheduleDate& scheduleDate = calendar->getScheduleDate(month, day);
+			//scheduleDate.setDescription(description);
+			//scheduleDate.setType(type);
 		}
 	}
 
@@ -504,3 +482,4 @@ void restoreCalendar(MyCalendar* calendar)
 	cout << "Calendar has been successfully restored from '" << filename << "'." << endl;
 
 }
+*/

@@ -50,7 +50,7 @@ public:
 	void displayYearSchedules() const;
 	void displayMonthSchedules() const;
 	void displayDaySchedule() const;
-	MyScheduleDate& getScheduleDate(int month, int day); // New function to access specific schedule dates
+	MyScheduleDate& getScheduleDate(); //int month, int day New function to access specific schedule dates
 	void updateToSystemDate();
 
 	friend ostream& operator<<(ostream& out, const MyCalendar& obj);
