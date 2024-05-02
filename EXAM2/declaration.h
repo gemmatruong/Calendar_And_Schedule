@@ -6,6 +6,7 @@
 #include <fstream>
 #include <sstream>
 #include <ctime>
+#include <iomanip>
 #include "input.h"
 #include "MyUnit.h"
 #include "MyScheduleDate.h"
@@ -14,6 +15,7 @@
 
 char menuOption(MyCalendar*);
 
+void monthArray(MyCalendar* c, int(&validDay)[7][5]);
 void yearSetUp(MyCalendar* c);
 void monthSetup(MyCalendar* c);
 void daySetUp(MyCalendar* c);
