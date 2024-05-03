@@ -11,7 +11,7 @@
 #include "MyUnit.h"
 #include "MyScheduleDate.h"
 #include "MyCalendar.h"
-
+#include <string>
 
 char menuOption(MyCalendar*);
 
@@ -23,4 +23,3 @@ void calendarSetUp(MyCalendar* c);
 void scheduleAndReport(MyCalendar* c);
 void saveCalendar(MyCalendar* c);
 void restoreCalendar(MyCalendar* c);
-

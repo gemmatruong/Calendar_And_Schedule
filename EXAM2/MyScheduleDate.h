@@ -18,4 +18,3 @@ public:
 
 	friend ostream& operator<<(ostream& out, const MyScheduleDate& obj);
 };
-

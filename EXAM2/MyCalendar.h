@@ -31,7 +31,6 @@ public:
 	string getMonthName() const;
 	string getDayOfWeek() const;
 	string updateDaySuffix() const;
-	
 	int* getSystemDate() const;
 	int updateDaysInMonth();
 
