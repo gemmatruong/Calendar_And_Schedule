@@ -1,6 +1,6 @@
 // Exam 2
 //main folder, the main menu of the program will be managed thru this file
-//contributors: Armando Orozco, Thi Troung, Christopher Truong
+//contributors: Armando Orozco, Thi Truong, Christopher Truong
 //test
 
 #include "declaration.h"
@@ -93,7 +93,10 @@ int main() {
 		system("pause");
 	} while (true);
 
+	delete calendar;
+
 	return EXIT_SUCCESS;
+
 }
 
 char menuOption(MyCalendar* test) {
@@ -177,6 +180,7 @@ void yearSetUp(MyCalendar* c)
 		cout << "\n";
 		system("pause");
 	} while (true);
+
 
 }
 
@@ -373,8 +377,29 @@ void scheduleAndReport(MyCalendar* calendar)
 	} while (option != 0);
 }
 
-void saveCalendar(MyCalendar* calendar) {}
-void restoreCalendar(MyCalendar* calendar) {}
+void saveCalendar(MyCalendar* c) 
+{
+	string filename = to_string(c->getCurrentYear()) + ".dat";
+
+	if (c->saveToFile(filename))
+	{
+		cout << "\n\n\tSUCCESS: File, " << filename << " has been save.\n";
+	}
+	else
+		cout << "\n\n\tERROR: Cannot save to file!\n";
+}
+
+void restoreCalendar(MyCalendar* c) 
+{
+	string filename = inputString("\n\tEnter a file name: ", false);
+
+	if (c->restoreFromFile(filename))
+	{
+		cout << "\n\n\tSUCCESS: Restored calendar from " << filename << ".\n";
+	}
+	else
+		cout << "\n\n\tERROR: Cannot save to file!\n";
+}
 /*
 {
 	if (calendar == nullptr) {

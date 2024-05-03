@@ -495,6 +495,46 @@ MyScheduleDate& MyCalendar::getScheduleDate()
     //    std::cerr << "Invalid month or day requested. Returning dummy object." << std::endl;
     //    return dummy;
     //}
+}
+
+
+bool MyCalendar::saveToFile(string& filename)
+{
+    // Define an output file streaming object
+    ofstream outfile(filename, ios::binary);
+
+    // Check if the file is successfully open
+    if (!outfile)
+    {
+        cout << "\n\tERROR: file , " << filename << " , cannot be found\n";
+        return false;
+    }
+    // write the content of the MyCalendar object to the file
+    outfile.write(reinterpret_cast<char*>(this), sizeof(*this));
+
+    // Close the file
+    outfile.close();
+    return true;
+}
+
+bool MyCalendar::restoreFromFile(string& filename)
+{
+    // Define an input file streaming object
+    ifstream infile(filename, ios::binary);
+
+    // Check if the file is successfully open
+    if (!infile)
+    {
+        cout << "\n\tERROR: file , " << filename << " , cannot be found\n";
+        return false;
+    }
+    // write the content of the MyCalendar object to the file
+    infile.read(reinterpret_cast<char*>(this), sizeof(*this));
+
+    // Close the file
+    infile.close();
+    return true;
+}
 
 
 ostream& operator<<(ostream& out, const MyCalendar& obj)
