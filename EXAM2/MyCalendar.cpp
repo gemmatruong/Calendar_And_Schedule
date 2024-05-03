@@ -495,8 +495,6 @@ MyScheduleDate& MyCalendar::getScheduleDate()
     //    std::cerr << "Invalid month or day requested. Returning dummy object." << std::endl;
     //    return dummy;
     //}
-}
-
 
 
 ostream& operator<<(ostream& out, const MyCalendar& obj)
