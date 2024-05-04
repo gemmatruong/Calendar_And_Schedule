@@ -268,7 +268,8 @@ void scheduleAndReport(MyCalendar* calendar)
 
 		switch (inputInteger("\n\tOption: ",0,5)) 
 		{
-		case 1: {
+		case 1: //schedule a date
+		{
 			if (!calendar) {
 				cout << "Calendar object is null." << endl;
 				return;
@@ -294,7 +295,8 @@ void scheduleAndReport(MyCalendar* calendar)
 			cout << "\n";																			//display in the top of the menu
 			break;
 		}
-		case 2: {
+		case 2: //unschesdule 
+		{
 			dayMonth.month = inputInteger("\n\tSpecify a month (1...12): ", 1, 12);
 			int maxDays = calendar->getDaysInMonth(dayMonth.month);
 			dayMonth.day = inputInteger("\n\tSpecify a day (1.." + to_string(maxDays) + ")", 1, maxDays);
@@ -303,7 +305,7 @@ void scheduleAndReport(MyCalendar* calendar)
 
 			break;
 		}
-		case 3:
+		case 3://year schedules
 
 			for (int month = 1; month <= 12; month++)
 			{
@@ -312,7 +314,7 @@ void scheduleAndReport(MyCalendar* calendar)
 					cout << "No scheduled dates for the month.";
 				else
 				{
-					for (auto i : calendar->getMonthSchedules(month))
+					for (auto& i : calendar->getMonthSchedules(month))
 					{
 						cout <<"\n\t\t" << i;
 					}
@@ -321,18 +323,37 @@ void scheduleAndReport(MyCalendar* calendar)
 			}
 
 			break;
-		case 4:
-			calendar->getMonthSchedules(inputInteger("\n\tSpecify a month (1...12): ", 1, 12));
+		case 4://month schedules 
+		{
+			int month = inputInteger("\n\tSpecify a month (1...12): ", 1, 12);
+			vector<MyScheduleDate> dates = calendar->getMonthSchedules(month);
+			cout << "\n\t" << calendar->getMonthName(month) << ": \n";
+			if(dates.empty())
+				cout << "No scheduled dates for the month.";
+			else
+			{
+				for (auto& i : dates)
+				{
+					cout << "\n\t\t" << i;
+				}
+			}
+		}break;
+		case 5://day schedule
+		{
+			int month = inputInteger("\n\tSpecify a month (1...12): ", 1, 12);
+			int maxDays = calendar->getDaysInMonth(dayMonth.month);
+			int day = inputInteger("\n\tSpecify a day (1.." + to_string(maxDays) + ")", 1, maxDays);
+
+			cout << "\n\t\t" << calendar->getMonthName(month) + ": " << calendar->getScheduleDate(month, day);
 			break;
-		case 5:
-			calendar->getScheduleDate();
-			break;
+		}
 		case 0:
 			return;
 		default:
 			cout << "Invalid option. Please try again.\n";
 			break;
 		}
+		cout << "\n";
 		system("pause");
 	} while (true);
 	calendar->setCurrentMonth(dayMonth.month);

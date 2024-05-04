@@ -11,9 +11,9 @@ MyCalendar::MyCalendar()
     currentYear = date[2];
     leapYear = isLeapYear();
     updateDaysInMonth();
-    //for (int m = 0; m < 12; m++)
-    //	for (int d = 0; d < 31; d++)
-    //		scheduleDays[m][d].setValue(d + 1);
+    for (int m = 0; m < 12; m++)
+    	for (int d = 0; d < 31; d++)
+    		scheduleDays[m][d].setValue(d + 1);
 }
 
 void MyCalendar::setCurrentYear(int y)
@@ -501,7 +501,7 @@ MyScheduleDate MyCalendar::unscheduleDate(int day, int month) {
 
 
 //precondition: give true value of month and day
-std::vector<MyScheduleDate> MyCalendar::getMonthSchedules(int month) const {
+std::vector<MyScheduleDate> MyCalendar::getMonthSchedules(int month) {
     std::vector<MyScheduleDate> sDaysInMonth;
     for (int day = 0; day < getDaysInMonth(month); day++) {
         if (getScheduleDate(month, day).getType() != 'U') {
@@ -512,11 +512,12 @@ std::vector<MyScheduleDate> MyCalendar::getMonthSchedules(int month) const {
 }
 
 //precondition: give true value of month and day
-MyScheduleDate MyCalendar::getScheduleDate(int month, int day) const {
+MyScheduleDate& MyCalendar::getScheduleDate(int month, int day) {
+    MyScheduleDate d;
     if (month >= 1 && month <= 12 && day >= 1 && day <= getDaysInMonth(month))
         return scheduleDays[month - 1][day - 1];
     else
-        return MyScheduleDate();
+        return d;
 }
 
 MyScheduleDate& MyCalendar::getScheduleDate()

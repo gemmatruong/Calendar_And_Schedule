@@ -52,8 +52,8 @@ public:
 	MyScheduleDate scheduleDate(int day, int month, const std::string& description, char type); //schedule a date by given month an day
 	MyScheduleDate unscheduleDate(int day, int month);	//clears the given date
 
-	MyScheduleDate getScheduleDate(int month, int day) const;
-	std::vector<MyScheduleDate> getMonthSchedules(int month) const;
+	MyScheduleDate& getScheduleDate(int month, int day);
+	std::vector<MyScheduleDate> getMonthSchedules(int month);
 
 	MyScheduleDate& getScheduleDate(); //int month, int day New function to access specific schedule dates
 	void updateToSystemDate();
