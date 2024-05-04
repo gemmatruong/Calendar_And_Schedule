@@ -16,6 +16,8 @@
 char menuOption(MyCalendar*);
 
 void monthArray(MyCalendar* c, int(&validDay)[7][5]);
+int dayOfWeekTest(MyCalendar* c, int dayTest);
+string getAwarenessTheme(int month);
 void yearSetUp(MyCalendar* c);
 void monthSetup(MyCalendar* c);
 void daySetUp(MyCalendar* c);
