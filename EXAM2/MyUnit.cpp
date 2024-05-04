@@ -2,7 +2,7 @@
 
 MyUnit::MyUnit()
 {
-	value = 0;
+	value = 1;
 	strncpy_s(description,"unknown", 99);
 }
 

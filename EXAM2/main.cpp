@@ -1,78 +1,11 @@
 // Exam 2
 //main folder, the main menu of the program will be managed thru this file
-//contributors: Armando Orozco, Thi Troung, Christopher Truong
+//contributors: Armando Orozco, Thi Truong, Christopher Truong
 //test
 
 #include "declaration.h"
 
 using namespace std;
-
-int dayOfWeekTest(MyCalendar* c, int dayTest)
-{
-	int month = c->getCurrentMonth();
-	int year = c->getCurrentYear();
-	int day = dayTest;
-
-	if (month == 1) {
-		month = 13;
-		year--;
-	}
-	if (month == 2) {
-		month = 14;
-		year--;
-	}
-	int q = dayTest;
-	int m = month;
-	int k = year % 100;
-	int j = year / 100;
-	int h = q + 13 * (m + 1) / 5 + k + k / 4 + j / 4 + 5 * j;
-	h = h % 7;
-	h -= 1;
-	if (h == -1)//check getDayOfTheWeek in myCalendar class to see why is this
-		return 6;
-	return h;
-
-}
-
-void monthArray(MyCalendar* c, int(&validDay)[7][5])
-{
-	int day = 1;//set the day count to 1, since its the start day of every mont
-	for (int i = 0; i < 5; i++)//iterate trough rows
-	{
-		for (int j = 0; j < 7; j++)//iterate trough the days of the wee
-		{
-			if (j == dayOfWeekTest(c, day) && day <= c->getDaysInMonth())// if the day is not in the correct day of the week, go to the next one
-			{
-				validDay[j][i] = day;//set a flag to know theres a day here
-				day++;//try to the next day
-			}
-			else
-				validDay[j][i] = -1;//set a flag that there's not a day of the month in this day of the week
-		}
-	}
-}
-
-
-string getAwarenessTheme(int month) {
-	static const vector<string> themes = {
-		"Thyroid Month",  // January
-		"Heart Failure Month",      // February
-		"Multiple Sclerosis Month", // March
-		"Oral Cancer Month",    // April
-		"Mental Health Month",     // May
-		"Migrane and Headache Month",        // June
-		"Juvenile Arthrisis Month", // July
-		"Immunization Month",      // August
-		"Ovarian Cancer Month",  // September
-		"Breast Cancer Month",     // October
-		"Lung Cancer Month",  // November
-		"HIV Aids Month"   // December
-	};
-	if (month < 1 || month > 12) {
-		return "Unknown Awareness Month"; // Safety check for invalid month
-	}
-	return themes[month - 1];
-}
 
 int main() {
 	MyCalendar* calendar = new MyCalendar();
@@ -93,7 +26,10 @@ int main() {
 		system("pause");
 	} while (true);
 
+	delete calendar;
+
 	return EXIT_SUCCESS;
+
 }
 
 char menuOption(MyCalendar* test) {
@@ -177,6 +113,7 @@ void yearSetUp(MyCalendar* c)
 		cout << "\n";
 		system("pause");
 	} while (true);
+
 
 }
 
@@ -300,14 +237,23 @@ void calendarSetUp(MyCalendar* c)
 
 void scheduleAndReport(MyCalendar* calendar)
 {
-	MyScheduleDate* currentDate = &calendar->getScheduleDate();
-	int option;
+	struct dayMonth
+	{
+		int day = 1;
+		int month = 1;
+	} dayMonth;
+	
+
+	dayMonth.day = calendar->getCurrentDay();
+	dayMonth.month = calendar->getCurrentMonth();
+	MyScheduleDate sDate = calendar->getScheduleDate();
+
 	do {
 		system("cls");
-		cout << "\n\tmonth       : " << calendar->getMonthName();
-		cout << "\n\tday         : " << calendar->getCurrentDay();
-		cout << "\n\ttype        : " << currentDate->getType();  
-		cout << "\n\tdescription : " << currentDate->getDescription();  // Placeholder for description
+		cout << "\n\tmonth       : " << calendar->getMonthName(dayMonth.month);
+		cout << "\n\tday         : " << dayMonth.day;
+		cout << "\n\ttype        : " << sDate.getType();
+		cout << "\n\tdescription : " << sDate.getDescription();  // Placeholder for description
 
 		cout << "\n\n\tScheduling Date";
 		cout << "\n\t" << string(65, char(205));
@@ -319,166 +265,187 @@ void scheduleAndReport(MyCalendar* calendar)
 		cout << "\n\t5. Display day schedule";
 		cout << "\n\t0. Return";
 		cout << "\n\t" << string(65, char(205));
-		cout << "\n\tOption: ";
-		cin >> option;
 
-		switch (option) {
-		case 1: {
+		switch (inputInteger("\n\tOption: ",0,5)) 
+		{
+		case 1: //schedule a date
+		{
 			if (!calendar) {
 				cout << "Calendar object is null." << endl;
 				return;
 			}
 
-			int month = inputInteger("\n\tSpecify a month (1...12): ", 1, 12);
-			int day = inputInteger("\n\tSpecify a day (1.." + to_string(month) + ")", 1, month);
+			//ask for the day and month
+			dayMonth.month = inputInteger("\n\tSpecify a month (1...12): ", 1, 12);
+			int maxDays = calendar->getDaysInMonth(dayMonth.month);
+
+			dayMonth.day = inputInteger("\n\tSpecify a day (1.." + to_string(maxDays) + ")", 1, maxDays);
+
 			string description = inputString("\n\tEnter a description: ", true);
 			char type = toupper(inputChar("\n\tSpecify a type (R-return, A-Awareness, H-holiday, P-personal): ", static_cast<string>("RAHP")));
 
+			if (type == 'R')
+			{
+				cout << "\n\tThe date has been NOT scheduled";
+				break;
+			}
 
-			MyScheduleDate& date = calendar->getScheduleDate();
-			date.setDescription(description);
-			date.setType(type);
+			cout << "\n\t\t";
+			sDate = calendar->scheduleDate(dayMonth.day, dayMonth.month, description, type);//set the schedule date, ass well as updating the schedule date variable to 
+			cout << "\n";																			//display in the top of the menu
+			break;
+		}
+		case 2: //unschesdule 
+		{
+			dayMonth.month = inputInteger("\n\tSpecify a month (1...12): ", 1, 12);
+			int maxDays = calendar->getDaysInMonth(dayMonth.month);
+			dayMonth.day = inputInteger("\n\tSpecify a day (1.." + to_string(maxDays) + ")", 1, maxDays);
+			
+			sDate = calendar->unscheduleDate(dayMonth.day, dayMonth.month);
 
 			break;
 		}
-		case 2: {
+		case 3://year schedules
+
+			for (int month = 1; month <= 12; month++)
+			{
+				cout << "\n\t"<<calendar->getMonthName(month) << ": ";
+				if (calendar->getMonthSchedules(month).empty())
+					cout << "No scheduled dates for the month.";
+				else
+				{
+					for (auto& i : calendar->getMonthSchedules(month))
+					{
+						cout <<"\n\t\t" << i;
+					}
+				}
+				cout << "\n";
+			}
+
+			break;
+		case 4://month schedules 
+		{
 			int month = inputInteger("\n\tSpecify a month (1...12): ", 1, 12);
-			int day = inputInteger("\n\tSpecify a day (1.." + to_string(month) + ")", 1, month);
-			if (month >= 1 && month <= 12 && day >= 1 && day <= 30) { // Simplified validation
-				MyScheduleDate& date = calendar->getScheduleDate();
-				date.clearDate();  // Clear the scheduled date
-				cout << "\n\tSUCCESS: Date has successfully been unscheduled.\n";
+			vector<MyScheduleDate> dates = calendar->getMonthSchedules(month);
+			cout << "\n\t" << calendar->getMonthName(month) << ": \n";
+			if(dates.empty())
+				cout << "No scheduled dates for the month.";
+			else
+			{
+				for (auto& i : dates)
+				{
+					cout << "\n\t\t" << i;
+				}
 			}
-			else {
-				cout << "\n\tDate has NOT been scheduled or rescheduled." << endl;
-			}
+		}break;
+		case 5://day schedule
+		{
+			int month = inputInteger("\n\tSpecify a month (1...12): ", 1, 12);
+			int maxDays = calendar->getDaysInMonth(dayMonth.month);
+			int day = inputInteger("\n\tSpecify a day (1.." + to_string(maxDays) + ")", 1, maxDays);
+
+			cout << "\n\t\t" << calendar->getMonthName(month) + ": " << calendar->getScheduleDate(month, day);
 			break;
 		}
-		case 3:
-			calendar->displayYearSchedules();
-			break;
-		case 4:
-			calendar->displayMonthSchedules();
-			break;
-		case 5:
-			calendar->displayDaySchedule();
-			break;
 		case 0:
 			return;
 		default:
 			cout << "Invalid option. Please try again.\n";
 			break;
 		}
+		cout << "\n";
 		system("pause");
-	} while (option != 0);
+	} while (true);
+	calendar->setCurrentMonth(dayMonth.month);
+	calendar->setCurrentDay(dayMonth.day);
 }
 
-void saveCalendar(MyCalendar* calendar) {}
-void restoreCalendar(MyCalendar* calendar) {}
-/*
+void saveCalendar(MyCalendar* c) 
 {
-	if (calendar == nullptr) {
-		cout << "Error: Calendar object is null." << endl;
-		return;
+	string filename = to_string(c->getCurrentYear()) + ".dat";
+
+	if (c->saveToFile(filename))
+	{
+		cout << "\n\n\tSUCCESS: File, " << filename << " has been save.\n";
 	}
+	else
+		cout << "\n\n\tERROR: Cannot save to file!\n";
+}
 
-	string filename = inputString("Enter filename to save the calendar (default: calendar_data.dat): ", true);
-	if (filename.empty()) {
-		filename = "calendar_data.dat";  // Default filename if nothing is entered
+void restoreCalendar(MyCalendar* c) 
+{
+	string filename = inputString("\n\tEnter a file name: ", false);
+
+	if (c->restoreFromFile(filename))
+	{
+		cout << "\n\n\tSUCCESS: Restored calendar from " << filename << ".\n";
 	}
+	else
+		cout << "\n\n\tERROR: Cannot save to file!\n";
+}
 
-	ofstream file(filename, ios::binary);
-	if (!file.is_open()) {
-		cout << "Failed to open file for writing." << endl;
-		return;
-	}
-
-	// Write basic calendar information
-	file << "Year: " << calendar->getCurrentYear() << endl;
-	file << "Month: " << calendar->getCurrentMonth() << endl;
-	file << "Day: " << calendar->getCurrentDay() << endl;
-
-	// Iterate over all months and days to serialize scheduled dates
-	for (int m = 1; m <= 12; ++m) {  // Assuming months are 1-indexed
-		for (int d = 1; d <= calendar->getDaysInMonth(); ++d) {  // Assuming `getDaysInMonth()` returns the correct days count for each month
-			MyScheduleDate& date = calendar->getScheduleDate(m, d);
-			if (!date.getDescription().empty()) {  // Only serialize days with a description
-				file << "Date: " << m << "/" << d << " - "
-					<< "Type: " << date.getType() << " - "
-					<< "Description: " << date.getDescription() << endl;
+void monthArray(MyCalendar* c, int(&validDay)[7][5])
+{
+	int day = 1;//set the day count to 1, since its the start day of every mont
+	for (int i = 0; i < 5; i++)//iterate trough rows
+	{
+		for (int j = 0; j < 7; j++)//iterate trough the days of the wee
+		{
+			if (j == dayOfWeekTest(c, day) && day <= c->getDaysInMonth())// if the day is not in the correct day of the week, go to the next one
+			{
+				validDay[j][i] = day;//set a flag to know theres a day here
+				day++;//try to the next day
 			}
+			else
+				validDay[j][i] = -1;//set a flag that there's not a day of the month in this day of the week
 		}
 	}
-
-	file.close();
-	cout << "Calendar has been successfully saved to '" << filename << "'." << endl;
 }
 
-
-void restoreCalendar(MyCalendar* calendar)
+int dayOfWeekTest(MyCalendar* c, int dayTest)
 {
-	if (calendar == nullptr) {
-		cout << "Error: Calendar object is null." << endl;
-		return;
+	int month = c->getCurrentMonth();
+	int year = c->getCurrentYear();
+	int day = dayTest;
+
+	if (month == 1) {
+		month = 13;
+		year--;
 	}
-
-	string filename = inputString("Enter filename to load the calendar from (default: calendar_data.txt): ", true);
-	if (filename.empty()) {
-		filename = "calendar_data.txt";  // Default filename if nothing is entered
+	if (month == 2) {
+		month = 14;
+		year--;
 	}
-
-	ifstream file(filename);
-	if (!file.is_open()) {
-		cout << "Failed to open file for reading." << endl;
-		return;
-	}
-	string line;
-	while (getline(file, line)) {
-		size_t pos = line.find(':');
-		if (pos == string::npos) continue; // Skip if no colon found
-
-		string key = trim(line.substr(0, pos));
-		string value = trim(line.substr(pos + 1));
-
-		if (key == "Year") {
-			calendar->setCurrentYear(stoi(value));
-		}
-		else if (key == "Month") {
-			calendar->setCurrentMonth(stoi(value));
-		}
-		else if (key == "Day") {
-			calendar->setCurrentDay(stoi(value));
-		}
-		else if (key == "Date") {
-			size_t dashPos = value.find('-');
-			if (dashPos == string::npos) continue; // Skip if no dash found
-
-			string datePart = trim(value.substr(0, dashPos));
-			size_t slashPos = datePart.find('/');
-			if (slashPos == string::npos) continue; // Skip if no slash found
-
-			int month = stoi(trim(datePart.substr(0, slashPos)));
-			int day = stoi(trim(datePart.substr(slashPos + 1)));
-
-			size_t typePos = value.find("Type: ", dashPos + 1);
-			if (typePos == string::npos) continue; // Skip if no "Type: " found
-
-			size_t descPos = value.find(" - ", typePos + 6);
-			if (descPos == string::npos) continue; // Skip if no " - " found
-
-			char type = trim(value.substr(typePos + 6, descPos - (typePos + 6)))[0];
-			string description = trim(value.substr(descPos + 3));
-
-			// Set the schedule
-			//MyScheduleDate& scheduleDate = calendar->getScheduleDate(month, day);
-			//scheduleDate.setDescription(description);
-			//scheduleDate.setType(type);
-		}
-	}
-
-	file.close();
-	cout << "Calendar has been successfully restored from '" << filename << "'." << endl;
+	int q = dayTest;
+	int m = month;
+	int k = year % 100;
+	int j = year / 100;
+	int h = q + 13 * (m + 1) / 5 + k + k / 4 + j / 4 + 5 * j;
+	h = h % 7;
+	h -= 1;
+	if (h == -1)//check getDayOfTheWeek in myCalendar class to see why is this
+		return 6;
+	return h;
 
 }
-*/
 
+string getAwarenessTheme(int month) {
+	static const vector<string> themes = {
+		"Thyroid Month",  // January
+		"Heart Failure Month",      // February
+		"Multiple Sclerosis Month", // March
+		"Oral Cancer Month",    // April
+		"Mental Health Month",     // May
+		"Migrane and Headache Month",        // June
+		"Juvenile Arthrisis Month", // July
+		"Immunization Month",      // August
+		"Ovarian Cancer Month",  // September
+		"Breast Cancer Month",     // October
+		"Lung Cancer Month",  // November
+		"HIV Aids Month"   // December
+	};
+	if (month < 1 || month > 12) {
+		return "Unknown Awareness Month"; // Safety check for invalid month
+	}
+	return themes[month - 1];
+}
