@@ -91,6 +91,28 @@ unsigned short MyCalendar::getDaysInMonth() const
     return daysInMonth;
 }
 
+//Preconditon: takes the month to know the days
+//post condition: returns total of days in the month
+unsigned short MyCalendar::getDaysInMonth(int month) const
+{
+    int daysInMonth = 0;
+    if (month == 4 || month == 6 || month == 9 || month == 11) {
+        daysInMonth = 30; // Months with 30 days
+    }
+    else if (month == 2) {
+        if (leapYear) {
+            daysInMonth = 29; // February in a leap year
+        }
+        else {
+            daysInMonth = 28; // February in a non-leap year
+        }
+    }
+    else {
+        daysInMonth = 31; // Months with 31 days
+    }
+    return daysInMonth;
+}
+
 void MyCalendar::updateToSystemDate()
 {
     int* date = getSystemDate();
@@ -111,7 +133,16 @@ string  MyCalendar::getMonthName() const
         return months[0];
 
 }
+string MyCalendar::getMonthName(int month) const
+{
+    const string months[13] = { "unknown", "January", "February", "March" , "April", "May", "June", "July", "August", "September", "October" ,"November", "December" };
 
+    if (month >= 1 && month <= 12)
+        return months[month];
+    else
+        return months[0];
+
+}
 string MyCalendar::getDayOfWeek() const
 {
     int month = currentMonth;
@@ -441,51 +472,56 @@ string MyCalendar::updateDaySuffix() const
 
 }
 
-void MyCalendar::scheduleDate(int day, const std::string& description) {
+MyScheduleDate MyCalendar::scheduleDate(int day,  int month,  const std::string& description, char type) {
     if (day > 0 && day <= getDaysInMonth()) {
-        scheduleDays[currentMonth - 1][day - 1].setDescription(description);
-        std::cout << "Date scheduled: " << description << " on day " << day << std::endl;
+        scheduleDays[month - 1][day - 1].setDescription(description);
+        scheduleDays[month - 1][day - 1].setType(type);
+        scheduleDays[month - 1][day - 1].setValue(day);
+        std::cout << "SUCCESS: Date sucsesfuylly scheduled: " << getMonthName(month) << " " << scheduleDays[month - 1][day - 1];
+
+        return scheduleDays[month - 1][day - 1];
     }
     else {
-        std::cout << "Invalid day for scheduling" << std::endl;
+        std::cout << "ERROR: Invalid day for scheduling" << std::endl;
+        return MyScheduleDate();
     }
 }
 
-void MyCalendar::unscheduleDate(int day) {
+MyScheduleDate MyCalendar::unscheduleDate(int day, int month) {
     if (day > 0 && day <= getDaysInMonth()) {
-        scheduleDays[currentMonth - 1][day - 1].clearDescription();
-        std::cout << "Date unscheduled for day " << day << std::endl;
+        scheduleDays[month - 1][day - 1].clearDate();
+        std::cout << "SUCCESS: Date sucsesfuylly unscheduled: " << getMonthName(month) << " " << day;
+        return scheduleDays[month - 1][day - 1];
     }
     else {
-        std::cout << "Invalid day for unscheduling" << std::endl;
+        std::cout << "ERROR: Invalid day for unscheduling" << std::endl;
+        return MyScheduleDate();
     }
 }
 
-void MyCalendar::displayYearSchedules() const {
-    for (int month = 0; month < 12; month++) {
-        for (int day = 0; day < daysInMonth; day++) {
-            if (!scheduleDays[month][day].getDescription().empty()) {
-                std::cout << "Month " << month + 1 << " Day " << day + 1 << ": " << scheduleDays[month][day].getDescription() << std::endl;
-            }
+
+//precondition: give true value of month and day
+std::vector<MyScheduleDate> MyCalendar::getMonthSchedules(int month) const {
+    std::vector<MyScheduleDate> sDaysInMonth;
+    for (int day = 0; day < getDaysInMonth(month); day++) {
+        if (getScheduleDate(month, day).getType() != 'U') {
+            sDaysInMonth.push_back(getScheduleDate(month, day));
         }
     }
+    return sDaysInMonth;
 }
 
-void MyCalendar::displayMonthSchedules() const {
-    for (int day = 0; day < daysInMonth; day++) {
-        if (!scheduleDays[currentMonth - 1][day].getDescription().empty()) {
-            std::cout << "Day " << day + 1 << ": " << scheduleDays[currentMonth - 1][day].getDescription() << std::endl;
-        }
-    }
-}
-
-void MyCalendar::displayDaySchedule() const {
-    std::cout << "Schedule for Day " << currentDay << ": " << scheduleDays[currentMonth - 1][currentDay - 1].getDescription() << std::endl;
+//precondition: give true value of month and day
+MyScheduleDate MyCalendar::getScheduleDate(int month, int day) const {
+    if (month >= 1 && month <= 12 && day >= 1 && day <= getDaysInMonth(month))
+        return scheduleDays[month - 1][day - 1];
+    else
+        return MyScheduleDate();
 }
 
 MyScheduleDate& MyCalendar::getScheduleDate()
 {
-    return scheduleDays[currentDay][currentMonth];
+    return scheduleDays[currentDay-1][currentMonth-1];
     // Boundary checks to prevent out-of-range access
     //if (currentMonth >= 1 && currentMonth <= 12 && day >= 1 && day <= daysInMonth) {
     //    return scheduleDays[month - 1][day - 1];

@@ -1,6 +1,7 @@
 #pragma once
 #include "MyScheduleDate.h"
 #include <fstream>
+#include<vector>
 
 
 class MyCalendar
@@ -28,9 +29,11 @@ public:
 
 	MyScheduleDate getSDay(int m, int d);
 	unsigned short getDaysInMonth() const;
+	unsigned short getDaysInMonth(int month) const;
 
 	string yearToWords() const;
 	string getMonthName() const;
+	string getMonthName(int month) const;
 	string getDayOfWeek() const;
 	string updateDaySuffix() const;
 	int* getSystemDate() const;
@@ -46,11 +49,12 @@ public:
 	void jumpBackward(int);			// jump forward a number of days
 
 
-	void scheduleDate(int day, const std::string& description);
-	void unscheduleDate(int day);
-	void displayYearSchedules() const;
-	void displayMonthSchedules() const;
-	void displayDaySchedule() const;
+	MyScheduleDate scheduleDate(int day, int month, const std::string& description, char type); //schedule a date by given month an day
+	MyScheduleDate unscheduleDate(int day, int month);	//clears the given date
+
+	MyScheduleDate getScheduleDate(int month, int day) const;
+	std::vector<MyScheduleDate> getMonthSchedules(int month) const;
+
 	MyScheduleDate& getScheduleDate(); //int month, int day New function to access specific schedule dates
 	void updateToSystemDate();
 
