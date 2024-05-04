@@ -1,7 +1,6 @@
-
 // Exam 2
 //main folder, the main menu of the program will be managed thru this file
-//contributors: Armando Orozco, Thi Troung
+//contributors: Armando Orozco, Thi Truong, Christopher Truong
 //test
 
 #include "declaration.h"
@@ -94,63 +93,69 @@ int main() {
 		system("pause");
 	} while (true);
 
+	delete calendar;
+
 	return EXIT_SUCCESS;
+
 }
 
 char menuOption(MyCalendar* test) {
-    system("cls");
-    cout << "\n\tCurrent year : ";
-    cout << "\033[34;1m" << test->getCurrentYear() << " - " << test->yearToWords() << (test->isLeapYear() ? " (leap)" : " (non-leap)") << "\033[0m";
-    cout << "\n\t" << string(70, char(196));
-    cout << "\n\tCurrent month: ";
-    cout << "\033[34;1m" << test->getCurrentMonth() << " - " << test->getMonthName() << "\033[0m";
-    cout << "\n\tAwareness    : ";
-    cout << "\033[34;1m" << getAwarenessTheme(test->getCurrentMonth()) << "\033[0m";
-    cout << "\n\t" << string(70, char(196));
-    cout << "\n\tCurrent day  : ";
-    cout << "\033[34;1m" << test->getCurrentDay() << test->updateDaySuffix() << " - " << test->getDayOfWeek() << "\033[0m";
-	cout << "\n\t             : unschedule";
+	system("cls");  // Clear the console screen
+	cout << "\n\t" + string(1, char(218)) + string(84, char(196)) + string(1, char(191));
+	cout << "\n\t" + string(1, char(179)) + " Current Year : " << "\033[34;1m" << test->getCurrentYear() << " - " << test->yearToWords() << (test->isLeapYear() ? " (leap)" : " (non-leap)") << "\033[0m" << setw(31) << right << string(1, char(179));
+	cout << "\n\t" + string(1, char(195)) + string(84, char(196)) + string(1, char(180));
+	cout << "\n\t" + string(1, char(179)) + " Current Month: " << "\033[34;1m" << test->getCurrentMonth() << " - " << test->getMonthName() << "\033[0m" << setw(62) << right << string(1, char(179));
+	cout << "\n\t" + string(1, char(179)) + " Awareness    : " << "\033[34;1m" << getAwarenessTheme(test->getCurrentMonth()) << "\033[0m" << setw(50) << right << string(1, char(179));
+	cout << "\n\t" + string(1, char(195)) + string(84, char(196)) + string(1, char(180));
+	cout << "\n\t" + string(1, char(179)) + " Current Day  : " << "\033[34;1m" << test->getCurrentDay() << test->updateDaySuffix() << " - " << test->getDayOfWeek() << "\033[0m" << setw(55) << right << string(1, char(179));
+	cout << "\n\t" + string(1, char(179)) << setw(10) << right << "              : " << (test->getSDay(test->getCurrentMonth() - 1, test->getCurrentDay() - 1).getDescription().empty() ? "Unscheduled" : test->getSDay(test->getCurrentMonth() - 1, test->getCurrentDay() - 1).getDescription()) << setw(65) << right << string(1, char(179));
 
-    cout << "\n\n\t\t  Sunday   |  Monday   |  Tuesday  | Wednesday | Thursday  |   Friday  |  Saturday \n";
-
-    int validDays[7][5] = {};
-    monthArray(test, validDays);
-
-    for (int i = 0; i < 5; i++) {
-        for (int j = 0; j < 7; j++) {
-            cout << "\t\t";
-            if (validDays[j][i] == -1) {
-                cout << string(2,char(176));  // Display ?? for invalid days
-            }
-            else if (validDays[j][i] == test->getCurrentDay()) {
-                cout << "\033[44m" << setw(2) << validDays[j][i] << "\033[0m";  // Highlight current day with blue background
-            }
-            else {
-                cout << setw(2) << validDays[j][i];
-            }
-            if (j < 6) cout << " | ";
-        }
-        cout << "\n";
-    }
+	// Days of the week header with borders as specified
+	cout << "\n\t" + string(1, char(195)) + string(11, char(196)) + string(1, char(194)) + string(11, char(196)) + string(1, char(194)) + string(11, char(196)) + string(1, char(194)) + string(11, char(196)) + string(1, char(194)) + string(11, char(196)) + string(1, char(194)) + string(12, char(196)) + string(1, char(194)) + string(11, char(196)) + string(1, char(180));
+	cout << "\n\t" + string(1, char(179)) + "  Sunday   " + string(1, char(179)) + "  Monday   " + string(1, char(179)) + "  Tuesday  " + string(1, char(179)) + " Wednesday " + string(1, char(179)) + " Thursday  " + string(1, char(179)) + "   Friday   " + string(1, char(179)) + "  Saturday " + string(1, char(179));
+	cout << "\n\t" + string(1, char(195)) + string(11, char(196)) + string(1, char(193)) + string(11, char(196)) + string(1, char(193)) + string(11, char(196)) + string(1, char(193)) + string(11, char(196)) + string(1, char(193)) + string(11, char(196)) + string(1, char(193)) + string(12, char(196)) + string(1, char(193)) + string(11, char(196)) + string(1, char(180));
 
 
-    cout << "\n\t" << string(70, char(196));
-    cout << "\n\n\tCMPR121: Exam#2 - MyCalendar - OOP implementations Armando O., Thi T., Christopher T. (add your names)";
-    cout << "\n\t" << string(65, char(205));
-    cout << "\n\tA. Setting Current Year";
-    cout << "\n\tB. Setting Current Month";
-    cout << "\n\tC. Setting Current Day";
-    cout << "\n\tD. Setting Current Calendar";
-    cout << "\n\tE. Schedule and Report Dates";
-    cout << "\n\t" << string(65, char(196));
-    cout << "\n\tF. Sync to system's date";
-    cout << "\n\tG. Save calendar to file";
-    cout << "\n\tH. Restore calendar from file";
-    cout << "\n\t" << string(65, char(196));
-    cout << "\n\tX. Exit";
-    cout << "\n\t" << string(65, char(205)) << "\n";
+	int validDays[7][5] = {};
+	monthArray(test, validDays);
 
-    return toupper(inputChar("\n\tOption: ", "ABCDEFGH"));
+	for (int i = 0; i < 5; i++) {
+		cout << "\n\t" + string(1, char(179));  // Start of the row with the left border
+		for (int j = 0; j < 7; j++) {
+			if (validDays[j][i] == -1) {
+				cout << setw(11) << string(2, char(176));  // Display ░░ for invalid days
+			}
+			else {
+				if (validDays[j][i] == test->getCurrentDay()) {
+					// Highlight current day with blue background, ensure alignment
+					cout << "\033[44m" << setw(11) << validDays[j][i] << "\033[0m";
+				}
+				else {
+					// Display other days, properly aligned
+					cout << setw(11) << validDays[j][i];
+				}
+			}
+		}
+		cout << setw(8) << string(1, char(179));  // End of the row with the right border
+	}
+	cout << "\n\t" + string(1, char(192)) + string(84, char(196)) + string(1, char(217));
+
+	cout << "\n\n\tCMPR121: Exam#2 - MyCalendar - OOP implementations Armando O., Thi T., Christopher T.";
+	cout << "\n\t" << string(84, char(205));
+	cout << "\n\tA. Setting Current Year";
+	cout << "\n\tB. Setting Current Month";
+	cout << "\n\tC. Setting Current Day";
+	cout << "\n\tD. Setting Current Calendar";
+	cout << "\n\tE. Schedule and Report Dates";
+	cout << "\n\t" << string(84, char(196));
+	cout << "\n\tF. Sync to system's date";
+	cout << "\n\tG. Save calendar to file";
+	cout << "\n\tH. Restore calendar from file";
+	cout << "\n\t" << string(84, char(196));
+	cout << "\n\tX. Exit";
+	cout << "\n\t" << string(84, char(205)) << "\n";
+
+	return toupper(inputChar("\n\tOption: ", "ABCDEFGH"));
 }
 
 void yearSetUp(MyCalendar* c)
@@ -175,6 +180,7 @@ void yearSetUp(MyCalendar* c)
 		cout << "\n";
 		system("pause");
 	} while (true);
+
 
 }
 
@@ -304,8 +310,8 @@ void scheduleAndReport(MyCalendar* calendar)
 		system("cls");
 		cout << "\n\tmonth       : " << calendar->getMonthName();
 		cout << "\n\tday         : " << calendar->getCurrentDay();
-		cout << "\n\ttype        : "<< currentDate->getType();  // Assuming 'U' stands for unscheduled
-		cout << "\n\tdescription : "<<currentDate->getDescription();  // Placeholder for description
+		cout << "\n\ttype        : " << currentDate->getType();  
+		cout << "\n\tdescription : " << currentDate->getDescription();  // Placeholder for description
 
 		cout << "\n\n\tScheduling Date";
 		cout << "\n\t" << string(65, char(205));
@@ -327,12 +333,12 @@ void scheduleAndReport(MyCalendar* calendar)
 				return;
 			}
 
-			int month = inputInteger("\n\tSpecify a month (1...12): ",1,12);
+			int month = inputInteger("\n\tSpecify a month (1...12): ", 1, 12);
 			int day = inputInteger("\n\tSpecify a day (1.." + to_string(month) + ")", 1, month);
 			string description = inputString("\n\tEnter a description: ", true);
-			char type = toupper(inputChar("\n\tSpecify a type (R-return, A-Awareness, H-holiday, P-personal): ",static_cast<string>("RAHP")));
+			char type = toupper(inputChar("\n\tSpecify a type (R-return, A-Awareness, H-holiday, P-personal): ", static_cast<string>("RAHP")));
 
-			
+
 			MyScheduleDate& date = calendar->getScheduleDate();
 			date.setDescription(description);
 			date.setType(type);
@@ -340,11 +346,8 @@ void scheduleAndReport(MyCalendar* calendar)
 			break;
 		}
 		case 2: {
-			int month, day;
-			cout << "\n\tSpecify a month (1...12): ";
-			cin >> month;
-			cout << "\n\tSpecify a day (1..30): ";
-			cin >> day;
+			int month = inputInteger("\n\tSpecify a month (1...12): ", 1, 12);
+			int day = inputInteger("\n\tSpecify a day (1.." + to_string(month) + ")", 1, month);
 			if (month >= 1 && month <= 12 && day >= 1 && day <= 30) { // Simplified validation
 				MyScheduleDate& date = calendar->getScheduleDate();
 				date.clearDate();  // Clear the scheduled date
@@ -374,8 +377,29 @@ void scheduleAndReport(MyCalendar* calendar)
 	} while (option != 0);
 }
 
-void saveCalendar(MyCalendar* calendar) {}
-void restoreCalendar(MyCalendar* calendar) {}
+void saveCalendar(MyCalendar* c) 
+{
+	string filename = to_string(c->getCurrentYear()) + ".dat";
+
+	if (c->saveToFile(filename))
+	{
+		cout << "\n\n\tSUCCESS: File, " << filename << " has been save.\n";
+	}
+	else
+		cout << "\n\n\tERROR: Cannot save to file!\n";
+}
+
+void restoreCalendar(MyCalendar* c) 
+{
+	string filename = inputString("\n\tEnter a file name: ", false);
+
+	if (c->restoreFromFile(filename))
+	{
+		cout << "\n\n\tSUCCESS: Restored calendar from " << filename << ".\n";
+	}
+	else
+		cout << "\n\n\tERROR: Cannot save to file!\n";
+}
 /*
 {
 	if (calendar == nullptr) {
@@ -383,12 +407,12 @@ void restoreCalendar(MyCalendar* calendar) {}
 		return;
 	}
 
-	string filename = inputString("Enter filename to save the calendar (default: calendar_data.txt): ", true);
+	string filename = inputString("Enter filename to save the calendar (default: calendar_data.dat): ", true);
 	if (filename.empty()) {
-		filename = "calendar_data.txt";  // Default filename if nothing is entered
+		filename = "calendar_data.dat";  // Default filename if nothing is entered
 	}
 
-	ofstream file(filename);
+	ofstream file(filename, ios::binary);
 	if (!file.is_open()) {
 		cout << "Failed to open file for writing." << endl;
 		return;
@@ -437,7 +461,7 @@ void restoreCalendar(MyCalendar* calendar)
 	while (getline(file, line)) {
 		size_t pos = line.find(':');
 		if (pos == string::npos) continue; // Skip if no colon found
-    
+
 		string key = trim(line.substr(0, pos));
 		string value = trim(line.substr(pos + 1));
 
@@ -482,3 +506,4 @@ void restoreCalendar(MyCalendar* calendar)
 
 }
 */
+

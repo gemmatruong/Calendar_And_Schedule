@@ -1,5 +1,7 @@
 #pragma once
 #include "MyScheduleDate.h"
+#include <fstream>
+
 
 class MyCalendar
 {
@@ -31,7 +33,6 @@ public:
 	string getMonthName() const;
 	string getDayOfWeek() const;
 	string updateDaySuffix() const;
-	
 	int* getSystemDate() const;
 	int updateDaysInMonth();
 
@@ -52,6 +53,10 @@ public:
 	void displayDaySchedule() const;
 	MyScheduleDate& getScheduleDate(); //int month, int day New function to access specific schedule dates
 	void updateToSystemDate();
+
+	bool saveToFile(string& filename);		// Function to save data to a binary file
+
+	bool restoreFromFile(string& filename);	// Function to restore data from a file
 
 	friend ostream& operator<<(ostream& out, const MyCalendar& obj);
 
