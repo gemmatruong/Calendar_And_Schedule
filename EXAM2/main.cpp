@@ -279,7 +279,7 @@ void scheduleAndReport(MyCalendar* calendar)
 			dayMonth.month = inputInteger("\n\tSpecify a month (1...12): ", 1, 12);
 			int maxDays = calendar->getDaysInMonth(dayMonth.month);
 
-			dayMonth.day = inputInteger("\n\tSpecify a day (1.." + to_string(maxDays) + ")", 1, maxDays);
+			dayMonth.day = inputInteger("\n\tSpecify a day (1.." + to_string(maxDays) + "): ", 1, maxDays);
 
 			string description = inputString("\n\tEnter a description: ", true);
 			char type = toupper(inputChar("\n\tSpecify a type (R-return, A-Awareness, H-holiday, P-personal): ", static_cast<string>("RAHP")));
@@ -299,7 +299,7 @@ void scheduleAndReport(MyCalendar* calendar)
 		{
 			dayMonth.month = inputInteger("\n\tSpecify a month (1...12): ", 1, 12);
 			int maxDays = calendar->getDaysInMonth(dayMonth.month);
-			dayMonth.day = inputInteger("\n\tSpecify a day (1.." + to_string(maxDays) + ")", 1, maxDays);
+			dayMonth.day = inputInteger("\n\tSpecify a day (1.." + to_string(maxDays) + "): ", 1, maxDays);
 			
 			sDate = calendar->unscheduleDate(dayMonth.day, dayMonth.month);
 
@@ -342,7 +342,7 @@ void scheduleAndReport(MyCalendar* calendar)
 		{
 			int month = inputInteger("\n\tSpecify a month (1...12): ", 1, 12);
 			int maxDays = calendar->getDaysInMonth(dayMonth.month);
-			int day = inputInteger("\n\tSpecify a day (1.." + to_string(maxDays) + ")", 1, maxDays);
+			int day = inputInteger("\n\tSpecify a day (1.." + to_string(maxDays) + "): ", 1, maxDays);
 
 			cout << "\n\t\t" << calendar->getMonthName(month) + ": " << calendar->getScheduleDate(month, day);
 			break;

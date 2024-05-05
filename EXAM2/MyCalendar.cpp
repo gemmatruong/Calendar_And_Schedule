@@ -477,7 +477,7 @@ MyScheduleDate MyCalendar::scheduleDate(int day,  int month,  const std::string&
         scheduleDays[month - 1][day - 1].setDescription(description);
         scheduleDays[month - 1][day - 1].setType(type);
         scheduleDays[month - 1][day - 1].setValue(day);
-        std::cout << "SUCCESS: Date sucsesfuylly scheduled: " << getMonthName(month) << " " << scheduleDays[month - 1][day - 1];
+        std::cout << "SUCCESS: Date sucsesfully scheduled: " << getMonthName(month) << " " << scheduleDays[month - 1][day - 1];
 
         return scheduleDays[month - 1][day - 1];
     }
@@ -547,7 +547,11 @@ bool MyCalendar::saveToFile(string& filename)
         return false;
     }
     // write the content of the MyCalendar object to the file
-    outfile.write(reinterpret_cast<char*>(this), sizeof(*this));
+    //outfile.write(reinterpret_cast<char*>(this), sizeof(*this));
+    outfile.write(reinterpret_cast<char*>(&currentYear), sizeof(currentYear));
+    outfile.write(reinterpret_cast<char*>(&currentMonth), sizeof(currentMonth));
+    outfile.write(reinterpret_cast<char*>(&currentDay), sizeof(currentDay));
+    outfile.write(reinterpret_cast<char*>(scheduleDays), sizeof(scheduleDays));
 
     // Close the file
     outfile.close();
@@ -566,7 +570,12 @@ bool MyCalendar::restoreFromFile(string& filename)
         return false;
     }
     // write the content of the MyCalendar object to the file
-    infile.read(reinterpret_cast<char*>(this), sizeof(*this));
+    //infile.read(reinterpret_cast<char*>(this), sizeof(*this));
+
+    infile.read(reinterpret_cast<char*>(&currentYear), sizeof(currentYear));
+    infile.read(reinterpret_cast<char*>(&currentMonth), sizeof(currentMonth));
+    infile.read(reinterpret_cast<char*>(&currentDay), sizeof(currentDay));
+    infile.read(reinterpret_cast<char*>(scheduleDays), sizeof(scheduleDays));
 
     // Close the file
     infile.close();
