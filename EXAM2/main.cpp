@@ -255,6 +255,8 @@ void scheduleAndReport(MyCalendar* calendar)
 		cout << "\n\ttype        : " << sDate.getType();
 		cout << "\n\tdescription : " << sDate.getDescription();  // Placeholder for description
 
+
+
 		cout << "\n\n\tScheduling Date";
 		cout << "\n\t" << string(65, char(205));
 		cout << "\n\t1. Schedule a date";
@@ -279,7 +281,7 @@ void scheduleAndReport(MyCalendar* calendar)
 			dayMonth.month = inputInteger("\n\tSpecify a month (1...12): ", 1, 12);
 			int maxDays = calendar->getDaysInMonth(dayMonth.month);
 
-			dayMonth.day = inputInteger("\n\tSpecify a day (1.." + to_string(maxDays) + ")", 1, maxDays);
+			dayMonth.day = inputInteger("\n\tSpecify a day (1.." + to_string(maxDays) + "): ", 1, maxDays);
 
 			string description = inputString("\n\tEnter a description: ", true);
 			char type = toupper(inputChar("\n\tSpecify a type (R-return, A-Awareness, H-holiday, P-personal): ", static_cast<string>("RAHP")));
@@ -299,52 +301,77 @@ void scheduleAndReport(MyCalendar* calendar)
 		{
 			dayMonth.month = inputInteger("\n\tSpecify a month (1...12): ", 1, 12);
 			int maxDays = calendar->getDaysInMonth(dayMonth.month);
-			dayMonth.day = inputInteger("\n\tSpecify a day (1.." + to_string(maxDays) + ")", 1, maxDays);
+			dayMonth.day = inputInteger("\n\tSpecify a day (1.." + to_string(maxDays) + "): ", 1, maxDays);
 			
 			sDate = calendar->unscheduleDate(dayMonth.day, dayMonth.month);
 
 			break;
 		}
-		case 3://year schedules
-
-			for (int month = 1; month <= 12; month++)
-			{
-				cout << "\n\t"<<calendar->getMonthName(month) << ": ";
-				if (calendar->getMonthSchedules(month).empty())
+		case 3: // Year schedules
+			for (int month = 1; month <= 12; month++) {
+				cout << "\n\t" << calendar->getMonthName(month) << ": ";
+				auto monthSchedules = calendar->getMonthSchedules(month);
+				if (monthSchedules.empty()) {
 					cout << "No scheduled dates for the month.";
-				else
-				{
-					for (auto& i : calendar->getMonthSchedules(month))
-					{
-						cout <<"\n\t\t" << i;
+				}
+				else {
+					for (const auto& schedule : monthSchedules) {
+						if (schedule.getType() == 'P') {
+							cout << "\n\t" << ANSI_COLOR_RED << schedule << ANSI_COLOR_RESET;
+						}
+						else if (schedule.getType() == 'H') {
+							cout << "\n\t" << ANSI_COLOR_GREEN << schedule << ANSI_COLOR_RESET;
+						}
+						else {
+							cout << schedule;
+						}
 					}
 				}
 				cout << "\n";
 			}
-
 			break;
-		case 4://month schedules 
+		case 4: // Month schedules 
 		{
 			int month = inputInteger("\n\tSpecify a month (1...12): ", 1, 12);
 			vector<MyScheduleDate> dates = calendar->getMonthSchedules(month);
 			cout << "\n\t" << calendar->getMonthName(month) << ": \n";
-			if(dates.empty())
+			if (dates.empty())
 				cout << "No scheduled dates for the month.";
 			else
 			{
 				for (auto& i : dates)
 				{
-					cout << "\n\t\t" << i;
+					if (i.getType() == 'P') {
+						cout << ANSI_COLOR_RED << "\n\t\t" << i << ANSI_COLOR_RESET;
+					}
+					else if (i.getType() == 'H') {
+						cout << ANSI_COLOR_GREEN << "\n\t\t" << i << ANSI_COLOR_RESET;
+					}
+					else {
+						cout << "\n\t\t" << i;
+					}
 				}
 			}
-		}break;
-		case 5://day schedule
+			break;
+		}
+
+		case 5: // Day schedule
 		{
 			int month = inputInteger("\n\tSpecify a month (1...12): ", 1, 12);
 			int maxDays = calendar->getDaysInMonth(dayMonth.month);
-			int day = inputInteger("\n\tSpecify a day (1.." + to_string(maxDays) + ")", 1, maxDays);
+			int day = inputInteger("\n\tSpecify a day (1.." + to_string(maxDays) + "): ", 1, maxDays);
 
-			cout << "\n\t\t" << calendar->getMonthName(month) + ": " << calendar->getScheduleDate(month, day);
+			MyScheduleDate daySchedule = calendar->getScheduleDate(month, day);
+
+			if (daySchedule.getType() == 'P') {
+				cout << ANSI_COLOR_RED << "\n\t\t" << calendar->getMonthName(month) << ": " << daySchedule << ANSI_COLOR_RESET;
+			}
+			else if (daySchedule.getType() == 'H') {
+				cout << ANSI_COLOR_GREEN << "\n\t\t" << calendar->getMonthName(month) << ": " << daySchedule << ANSI_COLOR_RESET;
+			}
+			else {
+				cout << "\n\t\t" << calendar->getMonthName(month) << ": " << daySchedule;
+			}
 			break;
 		}
 		case 0:
