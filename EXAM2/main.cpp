@@ -17,7 +17,7 @@ int main() {
 		case 'C': daySetUp(calendar); break;
 		case 'D': calendarSetUp(calendar); break;
 		case 'E': scheduleAndReport(calendar); break;
-		case 'F': calendar->updateToSystemDate(); break;
+		case 'F': calendar->updateToSystemDate(); cout << "\n\tSUCCESS: System calendar sync successful."; break;
 		case 'G': saveCalendar(calendar); break;
 		case 'H': restoreCalendar(calendar); break;
 		default: cout << "\n\tERROR - Invalid option. Please re-enter."; break;
