@@ -12,6 +12,13 @@
 #include "MyScheduleDate.h"
 #include "MyCalendar.h"
 #include <string>
+#include <cstdlib>
+#include <cctype>
+
+// ANSI escape sequences for text color formatting
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
 
 char menuOption(MyCalendar*);
 
