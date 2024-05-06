@@ -40,8 +40,8 @@ char menuOption(MyCalendar* test) {
 	cout << "\n\t" + string(1, char(179)) + " Current Month: " << "\033[34;1m" << test->getCurrentMonth() << " - " << test->getMonthName() << "\033[0m" << setw(62) << right << string(1, char(179));
 	cout << "\n\t" + string(1, char(179)) + " Awareness    : " << "\033[34;1m" << getAwarenessTheme(test->getCurrentMonth()) << "\033[0m" << setw(50) << right << string(1, char(179));
 	cout << "\n\t" + string(1, char(195)) + string(84, char(196)) + string(1, char(180));
-	cout << "\n\t" + string(1, char(179)) + " Current Day  : " << "\033[34;1m" << test->getCurrentDay() << test->updateDaySuffix() << " - " << test->getDayOfWeek() << "\033[0m" << setw(55) << right << string(1, char(179));
-	cout << "\n\t" + string(1, char(179)) << setw(10) << right << "              : " << (test->getSDay(test->getCurrentMonth() - 1, test->getCurrentDay() - 1).getDescription().empty() ? "Unscheduled" : test->getSDay(test->getCurrentMonth() - 1, test->getCurrentDay() - 1).getDescription()) << setw(65) << right << string(1, char(179));
+	cout << "\n\t" + string(1, char(179)) + " Current Day  : " << "\033[34;1m" << test->getCurrentDay() << test->updateDaySuffix() << " - " << test->getDayOfWeek() << "\033[0m" << setw(57) << right << string(1, char(179));
+	cout << "\n\t" + string(1, char(179)) << setw(10) << right << "              : " << (test->getSDay(test->getCurrentMonth() - 1, test->getCurrentDay() - 1).getDescription().empty() ? "Unscheduled" : test->getSDay(test->getCurrentMonth() - 1, test->getCurrentDay() - 1).getDescription()) << setw(58) << right << string(1, char(179));
 
 	// Days of the week header with borders as specified
 	cout << "\n\t" + string(1, char(195)) + string(11, char(196)) + string(1, char(194)) + string(11, char(196)) + string(1, char(194)) + string(11, char(196)) + string(1, char(194)) + string(11, char(196)) + string(1, char(194)) + string(11, char(196)) + string(1, char(194)) + string(12, char(196)) + string(1, char(194)) + string(11, char(196)) + string(1, char(180));
