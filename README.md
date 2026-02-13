@@ -3,6 +3,9 @@
 A **C++ calendar and scheduling application** that helps users organize and view events, tasks, and schedules.  
 Designed to practice **data structures, date/time handling, and user interaction** in a console-based system.
 
+<img width="713" height="501" alt="calendar" src="https://github.com/user-attachments/assets/eda36eb5-fa5d-4252-955f-4e8ad6193be9" />
+
+
 ---
 
 ## 🚀 Features
